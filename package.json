@@ -1,0 +1,27 @@
+{
+  "name": "remicord",
+  "version": "1.0.0",
+  "description": "write driving record",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FUNco247/remicord.git"
+  },
+  "author": "FUNco",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FUNco247/remicord/issues"
+  },
+  "homepage": "https://github.com/FUNco247/remicord#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/node": "^7.16.8",
+    "@babel/preset-env": "^7.16.11",
+    "nodemon": "^2.0.15"
+  }
+}
