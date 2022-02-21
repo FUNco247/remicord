@@ -1,3 +1,3 @@
-export const home = (req, res) => {
-  res.send("<h1>home</h1>");
+export const getEdit = (req, res) => {
+  res.send("edit user profile");
 };
