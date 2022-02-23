@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from "morgan";
+import "dotenv/config";
+import firebase from "./firebase";
 import "./db";
 import "./models/Record";
 import "./models/User";
@@ -12,7 +14,7 @@ const app = express();
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 
-app.use(morgan("tiny"));
+app.use(morgan("dev"));
 
 app.use("/", rootRouter);
 app.use("/user", userRouter);

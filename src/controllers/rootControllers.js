@@ -11,5 +11,5 @@ export const handleLogout = (req, res) => {
 };
 
 export const handleJoin = (req, res) => {
-  res.send("<h1>join</h1>");
+  res.render("join");
 };
