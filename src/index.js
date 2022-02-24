@@ -15,6 +15,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 
 app.use(morgan("dev"));
+app.use(express.urlencoded({ extended: true })); // express 앱이 form의 value를 이해하게한다.
 
 app.use("/", rootRouter);
 app.use("/user", userRouter);

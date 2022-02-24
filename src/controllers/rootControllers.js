@@ -11,5 +11,13 @@ export const handleLogout = (req, res) => {
 };
 
 export const handleJoin = (req, res) => {
-  res.render("join");
+  res.render("user/join");
+};
+
+export const handlePersonalJoin = (req, res) => {
+  res.render("user/personalJoin");
+};
+
+export const handleGroupJoin = (req, res) => {
+  res.render("user/groupJoin");
 };

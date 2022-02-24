@@ -1,18 +1,13 @@
-extends base.pug
+extends ../base.pug
 
 block contents
     if errorMessage
         span=errorMessage
     form(method="POST")
-        input(name="personalUser", type="checkbox", checked)
-        b 개인사용자
-        input(name="groupUser", type="checkbox")
-        b 그룹관리자
         input(placeholder="아이디*", name="username", type="text", required)
         input(placeholder="이름*", name="name", type="text", required)
-        input(placeholder="비밀번호*", name="password1", type="password", required)
+        input(placeholder="비밀번호*", name="password", type="password", required)
         input(placeholder="비밀번호 확인*", name="password2", type="password", required)
         input(placeholder="전화번호*", name="phoneNumber", type="number", required)
-        input(placeholder="차량번호*", name="plateNumber", type="text", required)
         input(placeholder="그룹명*", name="groupName", type="text", required)
         input(type="submit", value="회원가입")

@@ -5,9 +5,9 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   password: { type: String, required: true },
   phoneNumber: { type: String, required: true, unique: true },
-  plateNumber: { type: String, required: true, unique: true },
+  plateNumber: { type: String, unique: true },
   group: {
-    code: { type: String, unique: true },
+    name: { type: String, unique: true },
     position: { type: Number, default: 0 },
   },
 });
