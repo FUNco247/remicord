@@ -1,9 +1,11 @@
+import User from "../models/User";
+
 export const getEdit = (req, res) => {
   res.send("edit user profile");
 };
 
 export const handleLogin = (req, res) => {
-  res.send("<h1>login</h1>");
+  res.render("user/login");
 };
 
 export const handleLogout = (req, res) => {
@@ -22,6 +24,43 @@ export const getGroupJoin = (req, res) => {
   res.render("user/groupJoin");
 };
 
-export const postPersonalJoin = (req, res) => {
-  console.log(req.body);
+export const postPersonalJoin = async (req, res) => {
+  const { username, name, password, password2, phoneNumber, plateNumber } =
+    req.body;
+  if (password !== password2) {
+    return res.status(400).render("user/personalJoin", {
+      errorMessage: "비밀번호가 일치하지 않습니다.",
+    });
+  }
+  const usernameDup = await User.exists({ username: username });
+  const phoneNumberDup = await User.exists({ phoneNumber: phoneNumber });
+  const plateNumberDup = await User.exists({ plateNumber: plateNumber });
+
+  if (usernameDup) {
+    return res.status(400).render("user/personalJoin", {
+      errorMessage: "이미 존재하는 아이디입니다.",
+    });
+  } else if (phoneNumberDup) {
+    return res.status(400).render("user/personalJoin", {
+      errorMessage: "이미 존재하는 전화번호입니다.",
+    });
+  } else if (plateNumberDup) {
+    return res.status(400).render("user/personalJoin", {
+      errorMessage: "이미 존재하는 차량번호입니다.",
+    });
+  }
+  try {
+    await User.create({
+      username,
+      name,
+      password,
+      phoneNumber,
+      plateNumber,
+    });
+    return res.redirect("/user/login");
+  } catch (error) {
+    return res.status(400).render("user/personalJoin", {
+      errorMessage: error._message,
+    });
+  }
 };
