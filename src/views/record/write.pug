@@ -1,0 +1,22 @@
+extends ../base.pug
+
+block contents
+    h1.clock
+    if errorMessage
+        span=errorMessage
+    form(method="POST")
+        input(placeholder="현장명", name="siteName", type="text")
+        input(placeholder="키로수", name="distance", type="text")
+        input(name="water", type="checkbox") 
+        |폐수수거 
+        input(name="overTime", type="checkbox")
+        |시간초과
+        input(name="nightSupport", type="checkbox")
+        |야간지원
+        input(placeholder="기티 메모", name="memo", type="text")
+        input(type="submit", value="저장")
+    hr
+    div 
+
+block scripts
+    script(src="/static/js/clock.js")

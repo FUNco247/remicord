@@ -7,11 +7,12 @@ import {
   getGroupJoin,
   getPersonalJoin,
   postPersonalJoin,
+  postLogin,
 } from "../controllers/userControllers";
 
 const userRouter = express.Router();
 
-userRouter.get("/login", handleLogin);
+userRouter.route("/login").get(handleLogin).post(postLogin);
 userRouter.get("/logout", handleLogout);
 userRouter.get("/join", handleJoin);
 userRouter.route("/join/personal").get(getPersonalJoin).post(postPersonalJoin);

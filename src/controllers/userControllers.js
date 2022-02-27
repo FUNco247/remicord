@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const getEdit = (req, res) => {
   res.send("edit user profile");
@@ -9,7 +10,8 @@ export const handleLogin = (req, res) => {
 };
 
 export const handleLogout = (req, res) => {
-  res.send("<h1>logout</h1>");
+  req.session.destroy();
+  return res.redirect("/");
 };
 
 export const handleJoin = (req, res) => {
@@ -18,6 +20,26 @@ export const handleJoin = (req, res) => {
 
 export const getPersonalJoin = (req, res) => {
   res.render("user/personalJoin");
+};
+
+export const postLogin = async (req, res) => {
+  const { username, password } = req.body;
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.status(400).render("user/login", {
+      errorMessage: "존재하지 않는 아이디 입니다..",
+    });
+  }
+  // check if password correct
+  const ok = await bcrypt.compare(password, user.password);
+  if (!ok) {
+    return res.status(400).render("user/login", {
+      errorMessage: "비밀번호가 일치하지 않습니다.",
+    });
+  }
+  req.session.loggedIn = true;
+  req.session.user = user;
+  return res.redirect("/");
 };
 
 export const getGroupJoin = (req, res) => {

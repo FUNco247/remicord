@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from "morgan";
+import session from "express-session";
+import MongoStore from "connect-mongo";
 import "dotenv/config";
 import firebase from "./firebase";
 import "./db";
@@ -8,6 +10,7 @@ import "./models/User";
 import rootRouter from "./routers/rootRouters";
 import userRouter from "./routers/userRouters";
 import recordRouter from "./routers/recordRouters";
+import { localsMiddleware } from "./middlewares";
 
 const app = express();
 
@@ -17,6 +20,17 @@ app.set("views", process.cwd() + "/src/views");
 app.use(morgan("dev"));
 app.use(express.urlencoded({ extended: true })); // express 앱이 form의 value를 이해하게한다.
 
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({ mongoUrl: process.env.DB_URL }),
+  })
+);
+
+app.use(localsMiddleware);
+app.use("/static", express.static("statics"));
 app.use("/", rootRouter);
 app.use("/user", userRouter);
 app.use("/record", recordRouter);

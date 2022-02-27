@@ -1,5 +1,5 @@
 export const getWrite = (req, res) => {
-  res.send("write your driving record");
+  res.render("record/write");
 };
 
 export const getHistory = (req, res) => {

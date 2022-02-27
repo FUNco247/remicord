@@ -4,15 +4,17 @@ header
         ul
             li
                 a(href="/") Home
-            li 
-                a(href="/record/write") 기록부작성
-            li 
-                a(href="/record/history") 기록부조회
-            li
-                a(href="/user/join") 회원가입
-            li 
-                a(href="/user/edit") 회원정보
-            li 
-                a(href="/user/login") 로그인                    
-            li 
-                a(href="/logout") 로그아웃
+            if loggedIn
+                li 
+                    a(href="/record/write") 기록부작성
+                li 
+                    a(href="/record/history") 기록부조회
+                li 
+                    a(href="/user/edit") 회원정보
+                li 
+                    a(href="/user/logout") 로그아웃
+            else
+                li 
+                    a(href="/user/login") 로그인                    
+                li
+                    a(href="/user/join") 회원가입
