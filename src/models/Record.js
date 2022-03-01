@@ -1,14 +1,12 @@
 import mongoose from "mongoose";
 
 const recordSchema = new mongoose.Schema({
-  turn: { type: Number, required: true },
+  date: { type: String, required: true },
   siteName: { type: String, required: true },
   distance: { type: Number, required: true },
-  extraFee: {
-    water: { type: Boolean },
-    overTime: { type: Boolean },
-    nightSupport: { type: Boolean },
-  },
+  water: { type: Boolean, default: null },
+  overTime: { type: Boolean, default: null },
+  nightSupport: { type: Boolean, default: null },
   oiling: { type: Number },
   memo: { type: String },
 });
