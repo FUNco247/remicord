@@ -1,4 +1,5 @@
 extends ../base.pug
+include ../mixins/record
 
 block contents
     div
@@ -20,7 +21,12 @@ block contents
         input(placeholder="주유량", name="oiling", type="text")
         input(type="submit", value="저장")
     hr
-    div 
+    div
+        ol  
+            each record in records 
+                +record(record)
+            else
+              span 금일 운행 기록이 없습니다. 
 
 block scripts
     script(src="/static/js/clock.js")

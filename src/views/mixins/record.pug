@@ -1,0 +1,13 @@
+mixin record(info)
+    li
+        div 
+            span 현장명 : #{info.siteName} // 
+            span 주행거리 : #{info.distance} // 
+            if info.water
+                span 폐수수거 // 
+            if info.overTime
+                span 시간초과 // 
+            if info.nightSupport
+                span 시간외 출하 // 
+            if info.oiling 
+                span 주유량 : #{info.oiling}L 
