@@ -1,23 +1,28 @@
 mixin record(info)
     li
         div(class = "todayList") 
-            span #{info.siteName} 
-            span #{info.distance}  
-            if info.water
-                span ○
-            else 
-                span 
-            if info.overTime
-                span ○
-            else 
-                span 
-            if info.nightSupport
-                span ○
-            else 
-                span 
-            if info.oiling
-                span #{info.oiling}
+            if info.siteName
+                span(class = "siteName") #{info.siteName}
             else
-                span
-            button(class = "rewriteBtn") 수정
+                span(class = "siteName") X
+            if info.distance
+                span(class = "distance") #{info.distance}
+            else 
+                span(class = "distance")
+            if info.water
+                span(class = "water") ○
+            else 
+                span(class = "water")
+            if info.overTime
+                span(class = "overTime") ○
+            else 
+                span(class = "overTime")
+            if info.nightSupport
+                span(class = "nightSupport") ○
+            else 
+                span(class = "nightSupport")
+            if info.oiling
+                span(class = "oiling") #{info.oiling}
+            else
+                span(class = "oiling")
             button(class = "removeBtn") 삭제
