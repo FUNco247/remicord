@@ -3,7 +3,6 @@ import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import "dotenv/config";
-import firebase from "./firebase";
 import "./db";
 import "./models/Record";
 import "./models/User";

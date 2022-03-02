@@ -21,13 +21,23 @@ block contents
         input(placeholder="주유량", name="oiling", type="text")
         input(type="submit", value="저장")
     hr
-    div
-        ol  
-            each record in records 
-                +record(record)
-            else
-              span 금일 운행 기록이 없습니다. 
+    if records
+        div 
+            span NO. 
+            span 현장명 
+            span 주행거리(km) 
+            span 폐수수거 
+            span 시간초과 
+            span 시간외 출하
+            span 주유량(L)
+        div
+            ol  
+                each record in records 
+                    +record(record)
+                else
+                    span 금일 운행 기록이 없습니다. 
 
 block scripts
     script(src="/static/js/clock.js")
+    script(src="/static/js/write.js")
     
