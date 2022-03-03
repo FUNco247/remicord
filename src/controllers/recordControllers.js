@@ -2,13 +2,13 @@ import mongoose from "mongoose";
 import Record from "../models/Record";
 
 export const getWrite = async (req, res) => {
-  const { id } = req.params;
+  const { user } = req.session;
   const date = new Date();
   const years = String(date.getFullYear());
   const months = String(date.getMonth() + 1);
   const dates = String(date.getDate());
   const today = `${years}-${months}-${dates}`;
-  const records = await Record.find({ id: id, date: today });
+  const records = await Record.find({ owner: user, date: today });
   res.render("record/write", { records, years, months, dates });
 };
 
