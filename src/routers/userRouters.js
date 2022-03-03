@@ -18,6 +18,6 @@ userRouter.get("/join", handleJoin);
 userRouter.route("/join/personal").get(getPersonalJoin).post(postPersonalJoin);
 userRouter.get("/join/group", getGroupJoin);
 
-userRouter.get("/edit", getEdit);
+userRouter.get("/edit/:id", getEdit);
 
 export default userRouter;

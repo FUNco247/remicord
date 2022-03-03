@@ -6,11 +6,11 @@ header
                 a(href="/") Home
             if loggedIn
                 li 
-                    a(href="/record/write") 기록부작성
+                    a(href="/record/write/${loggedInUser.id}") 기록부작성
                 li 
-                    a(href="/record/history") 기록부조회
+                    a(href="/record/history/${loggedInUser.id}") 기록부조회
                 li 
-                    a(href="/user/edit") 회원정보
+                    a(href="/user/edit/${loggedInUser.id}") 회원정보
                 li 
                     a(href="/user/logout") 로그아웃
             else

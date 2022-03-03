@@ -8,8 +8,8 @@ import {
 
 const recordRouter = express.Router();
 
-recordRouter.route("/write").get(getWrite).post(postWrite);
-recordRouter.get("/history", getHistory);
+recordRouter.route("/write/:id").get(getWrite).post(postWrite);
+recordRouter.get("/history/:id", getHistory);
 recordRouter.get("/edit", reWrite);
 
 export default recordRouter;

@@ -1,4 +1,4 @@
-const todayList = document.querySelectorAll("div.todayList");
+const today = document.querySelector("input[name=date]").value;
 const removeBtn = document.querySelectorAll("button.removeBtn");
 
 for (let i = 0; i < removeBtn.length; i++) {
@@ -11,6 +11,7 @@ for (let i = 0; i < removeBtn.length; i++) {
     const nightSupport = data.querySelector(".nightSupport").innerText;
     const oiling = data.querySelector(".oiling").innerText;
     const record = {
+      date: today,
       siteName,
       distance,
       water,
@@ -18,6 +19,13 @@ for (let i = 0; i < removeBtn.length; i++) {
       nightSupport,
       oiling,
     };
-    console.log(record);
+    fetch("http://localhost:8282/db/record/remove-todays", {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(record),
+    });
+    window.location.reload();
   });
 }
