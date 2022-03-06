@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const recordSchema = new mongoose.Schema({
-  date: { type: String, required: true },
+  date: { type: Date, required: true },
   siteName: { type: String, required: true },
   distance: { type: Number, required: true },
   water: { type: Boolean, default: false },

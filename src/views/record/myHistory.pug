@@ -1,0 +1,21 @@
+extends ../base.pug
+include ../mixins/history
+include ../mixins/historyList
+
+block contents
+    form(method="get")
+        |시작일
+        input(class="dateStart", type="date", name="dateStart")
+        |종료일
+        input(class="dateEnd", type="date", name="dateEnd")
+        button(class="getHistoryBtn") 조회하기
+    div.showHistory
+        ol
+            each record in records 
+                    +history(record)
+            else
+                span 운행기록이 없습니다.
+
+
+block scripts
+    script(src="/static/js/myHistory.js")

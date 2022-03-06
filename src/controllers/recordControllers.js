@@ -1,13 +1,15 @@
 import Record from "../models/Record";
 
 export const getWrite = async (req, res) => {
-  const { id } = req.params;
+  const { user } = req.session;
   const date = new Date();
   const years = String(date.getFullYear());
-  const months = String(date.getMonth() + 1);
-  const dates = String(date.getDate());
+  let months = String(date.getMonth() + 1);
+  let dates = String(date.getDate());
+  months = months < 10 ? "0" + months : months;
+  dates = dates < 10 ? "0" + dates : dates;
   const today = `${years}-${months}-${dates}`;
-  const records = await Record.find({ id: id, date: today });
+  const records = await Record.find({ owner: user, date: today });
   res.render("record/write", { records, years, months, dates });
 };
 
@@ -45,7 +47,6 @@ export const postWrite = async (req, res) => {
 };
 
 export const removeTodaysRecord = async (req, res) => {
-  const { id } = req.params;
   const { user } = req.session;
   let { date, siteName, distance, water, overTime, nightSupport, oiling } =
     req.body;
@@ -55,7 +56,7 @@ export const removeTodaysRecord = async (req, res) => {
   oiling = Number(oiling) > 0 ? Number(oiling) : null;
   console.log(date, siteName, distance, water, overTime, nightSupport, oiling);
   try {
-    const record = await Record.findOneAndDelete({
+    await Record.findOneAndDelete({
       date: date,
       siteName: siteName,
       distance: distance,
@@ -65,16 +66,29 @@ export const removeTodaysRecord = async (req, res) => {
       oiling: oiling,
       owner: user,
     });
-    return res.redirect(`/record/write/${id}`);
+    //return res.redirect(`/record/write/${id}`);
   } catch (error) {
-    return res.status(400).render(`record/write`, {
+    return res.status(400).render("record/write", {
       errorMessage: error._message,
     });
   }
 };
 
-export const getHistory = (req, res) => {
-  res.send("check record history");
+export const getHistory = async (req, res) => {
+  const { dateStart, dateEnd } = req.query;
+  const { user } = req.session;
+  try {
+    const records = await Record.find({
+      owner: user._id,
+      date: {
+        $gte: dateStart,
+        $lte: dateEnd,
+      },
+    });
+    res.render("record/myHistory", { records });
+  } catch (error) {
+    res.render("record/myHistory", { errorMessage: "에러발생" });
+  }
 };
 
 export const reWrite = (req, res) => {

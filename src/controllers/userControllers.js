@@ -39,7 +39,8 @@ export const postLogin = async (req, res) => {
   }
   req.session.loggedIn = true;
   req.session.user = user;
-  return res.redirect("/");
+  const id = user._id;
+  return res.redirect(`/record/write/:${id}`);
 };
 
 export const getGroupJoin = (req, res) => {
@@ -47,6 +48,7 @@ export const getGroupJoin = (req, res) => {
 };
 
 export const postPersonalJoin = async (req, res) => {
+  console.log(req.body);
   const { username, name, password, password2, phoneNumber, plateNumber } =
     req.body;
   if (password !== password2) {
@@ -81,6 +83,7 @@ export const postPersonalJoin = async (req, res) => {
     });
     return res.redirect("/user/login");
   } catch (error) {
+    console.log(error);
     return res.status(400).render("user/personalJoin", {
       errorMessage: error._message,
     });

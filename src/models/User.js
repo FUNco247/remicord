@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   phoneNumber: { type: String, required: true, unique: true },
   plateNumber: { type: String, unique: true },
   group: {
-    name: { type: String, default: null, unique: true },
+    name: { type: String, default: null },
+    node: { type: String },
     position: { type: Number, default: 0 },
   },
 });
