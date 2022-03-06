@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import Record from "../models/Record";
 
 export const getWrite = async (req, res) => {
