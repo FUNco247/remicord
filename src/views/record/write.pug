@@ -8,9 +8,9 @@ block contents
     if errorMessage
         span=errorMessage
     form(method="POST")
-        input(name="date", type="text", value=`${years}-${months}-${dates}`,readonly)
-        input(placeholder="현장명", name="siteName", type="text")
-        input(placeholder="키로수", name="distance", type="text")
+        input(name="date", type="date", value=`${years}-${months}-${dates}`,readonly)
+        input(placeholder="현장명", name="siteName", type="text", maxlength="15")
+        input(placeholder="키로수", name="distance", type="text", maxlength="3")
         input(name="water", type="checkbox") 
         |폐수수거 
         input(name="overTime", type="checkbox")
@@ -18,7 +18,7 @@ block contents
         input(name="nightSupport", type="checkbox")
         |야간지원
         input(placeholder="기티 메모", name="memo", type="text")
-        input(placeholder="주유량", name="oiling", type="text")
+        input(placeholder="주유량", name="oiling", type="text", maxlength="3")
         input(type="submit", value="저장")
     hr
     if records
