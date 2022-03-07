@@ -40,7 +40,7 @@ export const postLogin = async (req, res) => {
   req.session.loggedIn = true;
   req.session.user = user;
   const id = user._id;
-  return res.redirect(`/record/write/:${id}`);
+  return res.redirect(`/record/write/${id}`);
 };
 
 export const getGroupJoin = (req, res) => {

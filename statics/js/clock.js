@@ -23,7 +23,7 @@ function getClock() {
   dates = dates < 10 ? "0" + dates : dates;
 
   clock.innerText = `${hours}:${minutes}:${seconds}`;
-  calendar.innerText = `${years}년 ${months}월 ${dates}일 ${days}`;
+  calendar.innerText = `Today : ${years}년 ${months}월 ${dates}일 ${days}`;
 }
 getClock();
 setInterval(getClock, 1000);
