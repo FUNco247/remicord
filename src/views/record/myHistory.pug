@@ -3,6 +3,8 @@ include ../mixins/history
 include ../mixins/historyList
 
 block contents
+    if errorMessage 
+        span #{errorMessage}
     form(method="get")
         |시작일
         input(class="dateStart", type="date", name="dateStart")
