@@ -1,6 +1,7 @@
 const today = document.querySelector("input[name=date]").value;
 const removeBtn = document.querySelectorAll("button.removeBtn");
 
+// todays record save
 for (let i = 0; i < removeBtn.length; i++) {
   removeBtn[i].addEventListener("click", (e) => {
     const data = e.target.parentElement;

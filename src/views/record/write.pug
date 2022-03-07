@@ -8,7 +8,7 @@ block contents
     if errorMessage
         span=errorMessage
     form(method="POST")
-        input(name="date", type="date", value=`${years}-${months}-${dates}`,readonly)
+        input(name="date", type="date", value=`${years}-${months}-${dates}`, readonly)
         input(placeholder="현장명", name="siteName", type="text", maxlength="15")
         input(placeholder="키로수", name="distance", type="text", maxlength="3")
         input(name="water", type="checkbox") 

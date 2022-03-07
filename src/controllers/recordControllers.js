@@ -79,17 +79,31 @@ export const getHistory = async (req, res) => {
 };
 
 export const getHistoryApi = async (req, res) => {
+  const getDaysArray = (start, end) => {
+    let arr = [];
+    for (const dt = new Date(start); dt <= end; dt.setDate(dt.getDate() + 1)) {
+      arr.push(new Date(dt));
+    }
+    return arr;
+  };
   const { startDate, endDate } = req.query;
   const { user } = req.session;
+  //get day list to check
+  let daylist = getDaysArray(new Date(startDate), new Date(endDate)).map(
+    (day) => day.toISOString().slice(0, 10)
+  );
+  let historyArr = [];
+  let history = {};
   try {
-    const records = await Record.find({
-      owner: user._id,
-      date: {
-        $gte: startDate,
-        $lte: endDate,
-      },
-    });
-    res.json(records);
+    for (let i = 0; i < daylist.length; i++) {
+      const records = await Record.find({
+        owner: user._id,
+        date: daylist[i],
+      });
+      history[daylist[i]] = records;
+      historyArr.push(history);
+    }
+    res.json(history);
   } catch (error) {
     res.send(error._message);
   }
