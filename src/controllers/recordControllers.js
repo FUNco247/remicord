@@ -75,19 +75,23 @@ export const removeTodaysRecord = async (req, res) => {
 };
 
 export const getHistory = async (req, res) => {
-  const { dateStart, dateEnd } = req.query;
+  res.render("record/myHistory");
+};
+
+export const getHistoryApi = async (req, res) => {
+  const { startDate, endDate } = req.query;
   const { user } = req.session;
   try {
     const records = await Record.find({
       owner: user._id,
       date: {
-        $gte: dateStart,
-        $lte: dateEnd,
+        $gte: startDate,
+        $lte: endDate,
       },
     });
-    res.render("record/myHistory", { records });
+    res.json(records);
   } catch (error) {
-    res.render("record/myHistory", { errorMessage: "에러발생" });
+    res.send(error._message);
   }
 };
 

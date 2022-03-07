@@ -14,3 +14,25 @@ const setDate = () => {
   dateEnd.value = `${years}-${months}-${dates}`;
 };
 setDate();
+
+//get fetch, record.json
+
+let records;
+const getHistoryJson = async () => {
+  const url = new URL("http://localhost:8282/record/history/api");
+  const params = { startDate: dateStart.value, endDate: dateEnd.value };
+  url.search = new URLSearchParams(params).toString();
+  await fetch(url)
+    .then((response) => response.json())
+    .then((json) => {
+      records = json;
+    })
+    .catch(function (error) {
+      console.log("request failed", error);
+    });
+};
+
+getHistoryBtn.addEventListener("click", getHistoryJson);
+
+// drawing HTML by using JSON "records"..... fuck....
+const showHistory = document.querySelector("div.showHistory");
