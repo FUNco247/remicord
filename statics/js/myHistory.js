@@ -56,7 +56,7 @@ const drawHistoryTable = (obj, keys) => {
   // draw table body
   const rowDataKeyArr = [
     "date",
-    "nightName",
+    "siteName",
     "distance",
     "water",
     "overTime",
@@ -82,7 +82,7 @@ const drawHistoryTable = (obj, keys) => {
           td.innerText = "-";
           td.classList.add(`${rowDataKey}`);
         }
-        console.log(td.innerText);
+        //console.log(td.innerText);
         trBody.appendChild(td);
       }
       tbody.append(trBody);
