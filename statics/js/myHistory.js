@@ -67,13 +67,13 @@ const drawHistoryTable = (obj, keys) => {
   for (i = 0; i < keys.length; i++) {
     const key = keys[i];
     const recordArr = obj[key];
-    const trBody = document.createElement("tr");
-    const td = document.createElement("td");
     //td.innerText = key;
     //trBody.appendChild(td);
     for (j = 0; j < recordArr.length; j++) {
       const rowData = recordArr[j];
+      const trBody = document.createElement("tr");
       for (k = 0; k < rowDataKeyArr.length; k++) {
+        const td = document.createElement("td");
         const rowDataKey = rowDataKeyArr[k];
         if (rowData[rowDataKey]) {
           td.innerText = rowData[rowDataKey];
@@ -82,7 +82,7 @@ const drawHistoryTable = (obj, keys) => {
           td.innerText = "-";
           td.classList.add(`${rowDataKey}`);
         }
-        //console.log(td.innerText);
+        console.log(td.innerText);
         trBody.appendChild(td);
       }
       tbody.append(trBody);
