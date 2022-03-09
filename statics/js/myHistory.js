@@ -29,6 +29,71 @@ const dateValidCheck = async () => {
   }
 };
 
+// drawing HTML by using JSON "records"..... fuck....
+const showHistory = document.querySelector("div.showHistory");
+const drawHistoryTable = (obj, keys) => {
+  const table = document.createElement("table");
+  const thead = document.createElement("thead");
+  const tbody = document.createElement("tbody");
+  const tr = document.createElement("tr");
+  // draw table head index
+  const theadArr = [
+    "날짜",
+    "현장명",
+    "거리(km)",
+    "폐수",
+    "OT",
+    "야간",
+    "주유",
+    "메모",
+  ];
+  for (i = 0; i < theadArr.length; i++) {
+    const th = document.createElement("th");
+    th.innerText = theadArr[i];
+    tr.appendChild(th);
+  }
+  thead.appendChild(tr);
+  // draw table body
+  const rowDataKeyArr = [
+    "date",
+    "nightName",
+    "distance",
+    "water",
+    "overTime",
+    "nightSupport",
+    "oiling",
+    "memo",
+  ];
+  for (i = 0; i < keys.length; i++) {
+    const key = keys[i];
+    const recordArr = obj[key];
+    const trBody = document.createElement("tr");
+    const td = document.createElement("td");
+    //td.innerText = key;
+    //trBody.appendChild(td);
+    for (j = 0; j < recordArr.length; j++) {
+      const rowData = recordArr[j];
+      for (k = 0; k < rowDataKeyArr.length; k++) {
+        const rowDataKey = rowDataKeyArr[k];
+        if (rowData[rowDataKey]) {
+          td.innerText = rowData[rowDataKey];
+          td.classList.add(`${rowDataKey}`);
+        } else {
+          td.innerText = "-";
+          td.classList.add(`${rowDataKey}`);
+        }
+        console.log(td.innerText);
+        trBody.appendChild(td);
+      }
+      tbody.append(trBody);
+    }
+  }
+  // insert head & body
+  table.appendChild(thead);
+  table.appendChild(tbody);
+  showHistory.appendChild(table);
+};
+
 //get fetch, record.json
 
 let records;
@@ -48,9 +113,9 @@ const getHistoryJson = async () => {
       console.log("request failed", error);
     });
   console.log(records);
+  const objKeys = Object.keys(records);
+  console.log(objKeys);
+  await drawHistoryTable(records, objKeys);
 };
 
 getHistoryBtn.addEventListener("click", getHistoryJson);
-
-// drawing HTML by using JSON "records"..... fuck....
-const showHistory = document.querySelector("div.showHistory");
