@@ -11,31 +11,36 @@ block contents
         input(name="date", type="date", value=`${years}-${months}-${dates}`, readonly)
         input(placeholder="현장명", name="siteName", type="text", maxlength="15")
         input(placeholder="키로수", name="distance", type="text", maxlength="3")
-        input(name="water", type="checkbox") 
-        |폐수수거 
-        input(name="overTime", type="checkbox")
-        |시간초과
-        input(name="nightSupport", type="checkbox")
-        |야간지원
+        label
+            input(name="water", type="checkbox")
+            |폐수수거
+        label
+            input(name="overTime", type="checkbox")
+            |시간초과
+        label
+            input(name="nightSupport", type="checkbox")
+            |야간지원
         input(placeholder="기티 메모", name="memo", type="text")
         input(placeholder="주유량", name="oiling", type="text", maxlength="3")
         input(type="submit", value="저장")
     hr
     if records
-        div 
-            span NO. 
-            span 현장명 
-            span 주행거리(km) 
-            span 폐수수거 
-            span 시간초과 
-            span 시간외 출하
-            span 주유량(L)
-        div
-            ol  
+        table 
+            thead 
+                tr 
+                    th 현장명
+                    th 주행거리(km)
+                    th 폐수수거
+                    th 시간초과
+                    th 시간외
+                    th 주유량(L)
+                    th 수정
+            tbody
                 each record in records 
                     +record(record)
                 else
-                    span 금일 운행 기록이 없습니다. 
+                    tr 
+                        td(colspan="7") 금일 운행 기록이 없습니다.
 
 block scripts
     script(src="/static/js/clock.js")

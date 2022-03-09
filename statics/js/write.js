@@ -1,10 +1,11 @@
 const today = document.querySelector("input[name=date]").value;
 const removeBtn = document.querySelectorAll("button.removeBtn");
 
-// todays record save
+// todays record delete
 for (let i = 0; i < removeBtn.length; i++) {
   removeBtn[i].addEventListener("click", (e) => {
-    const data = e.target.parentElement;
+    const data = e.target.parentElement.parentElement;
+    console.log(data);
     const siteName = data.querySelector(".siteName").innerText;
     const distance = data.querySelector(".distance").innerText;
     const water = data.querySelector(".water").innerText;

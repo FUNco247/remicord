@@ -1,28 +1,41 @@
 mixin record(info)
-    li
-        div(class = "todayList") 
+    tr
+        div(class = "todayList")
             if info.siteName
-                span(class = "siteName") #{info.siteName}
+                td
+                    span(class = "siteName") #{info.siteName}
             else
-                span(class = "siteName") X
+                td
+                    span(class = "siteName") X
             if info.distance
-                span(class = "distance") #{info.distance}
+                td
+                    span(class = "distance") #{info.distance}
             else 
-                span(class = "distance")
+                td
+                    span(class = "distance")
             if info.water
-                span(class = "water") O
+                td
+                    span(class = "water") O
             else 
-                span(class = "water")
+                td
+                    span(class = "water")
             if info.overTime
-                span(class = "overTime") O
+                td
+                    span(class = "overTime") O
             else 
-                span(class = "overTime")
+                td
+                    span(class = "overTime")
             if info.nightSupport
-                span(class = "nightSupport") O
+                td
+                    span(class = "nightSupport") O
             else 
-                span(class = "nightSupport")
+                td
+                    span(class = "nightSupport")
             if info.oiling
-                span(class = "oiling") #{info.oiling}
+                td
+                    span(class = "oiling") #{info.oiling}
             else
-                span(class = "oiling")
-            button(class = "removeBtn") 삭제
+                td
+                    span(class = "oiling")
+            td
+                button(class = "removeBtn") 삭제
