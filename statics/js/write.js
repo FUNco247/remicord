@@ -5,7 +5,7 @@ const removeBtn = document.querySelectorAll("button.removeBtn");
 for (let i = 0; i < removeBtn.length; i++) {
   removeBtn[i].addEventListener("click", (e) => {
     const data = e.target.parentElement.parentElement;
-    console.log(data);
+    //console.log(data);
     const siteName = data.querySelector(".siteName").innerText;
     const distance = data.querySelector(".distance").innerText;
     const water = data.querySelector(".water").innerText;

@@ -2,7 +2,7 @@ import User from "../models/User";
 import bcrypt from "bcrypt";
 
 export const getEdit = (req, res) => {
-  res.send("edit user profile");
+  res.render("user/editProfile");
 };
 
 export const handleLogin = (req, res) => {

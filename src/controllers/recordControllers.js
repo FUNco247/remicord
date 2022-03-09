@@ -25,7 +25,7 @@ export const postWrite = async (req, res) => {
     oiling,
     memo,
   } = req.body;
-  console.log(id);
+  //console.log(id);
   try {
     await Record.create({
       date,
@@ -54,7 +54,7 @@ export const removeTodaysRecord = async (req, res) => {
   overTime = overTime === "O";
   nightSupport = nightSupport === "O";
   oiling = Number(oiling) > 0 ? Number(oiling) : null;
-  console.log(date, siteName, distance, water, overTime, nightSupport, oiling);
+  //console.log(date, siteName, distance, water, overTime, nightSupport, oiling);
   try {
     await Record.findOneAndDelete({
       date: date,

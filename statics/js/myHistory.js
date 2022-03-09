@@ -30,8 +30,11 @@ const dateValidCheck = async () => {
 };
 
 // drawing HTML by using JSON "records"..... fuck....
-const showHistory = document.querySelector("div.showHistory");
 const drawHistoryTable = (obj, keys) => {
+  const showHistory = document.querySelector("div.showHistory");
+  if (showHistory.innerHTML) {
+    showHistory.innerHTML = "";
+  }
   const table = document.createElement("table");
   const thead = document.createElement("thead");
   const tbody = document.createElement("tbody");
@@ -44,7 +47,7 @@ const drawHistoryTable = (obj, keys) => {
     "폐수",
     "OT",
     "야간",
-    "주유",
+    "주유량(L)",
     "메모",
   ];
   for (i = 0; i < theadArr.length; i++) {
@@ -82,7 +85,6 @@ const drawHistoryTable = (obj, keys) => {
           td.innerText = "-";
           td.classList.add(`${rowDataKey}`);
         }
-        console.log(td.innerText);
         trBody.appendChild(td);
       }
       tbody.append(trBody);
@@ -112,10 +114,24 @@ const getHistoryJson = async () => {
     .catch(function (error) {
       console.log("request failed", error);
     });
-  console.log(records);
+  //console.log(records);
   const objKeys = Object.keys(records);
-  console.log(objKeys);
+  //console.log(objKeys);
   await drawHistoryTable(records, objKeys);
+  const tdDateArr = document.querySelectorAll("td.date");
+  const tdWaterArr = document.querySelectorAll("td.water");
+  const tdOverTimeArr = document.querySelectorAll("td.overTime");
+  const tdNightSupportArr = document.querySelectorAll("td.nightSupport");
+  tdDateArr.forEach((x) => (x.innerText = x.innerText.split("T")[0]));
+  tdWaterArr.forEach(
+    (x) => (x.innerText = x.innerText == "true" ? "O" : x.innerText)
+  );
+  tdOverTimeArr.forEach(
+    (x) => (x.innerText = x.innerText == "true" ? "O" : x.innerText)
+  );
+  tdNightSupportArr.forEach(
+    (x) => (x.innerText = x.innerText == "true" ? "O" : x.innerText)
+  );
 };
 
 getHistoryBtn.addEventListener("click", getHistoryJson);

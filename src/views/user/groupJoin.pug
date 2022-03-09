@@ -1,13 +1,5 @@
 extends ../base.pug
 
 block contents
-    if errorMessage
-        span=errorMessage
-    form(method="POST")
-        input(placeholder="아이디*", name="username", type="text", required)
-        input(placeholder="이름*", name="name", type="text", required)
-        input(placeholder="비밀번호*", name="password", type="password", required)
-        input(placeholder="비밀번호 확인*", name="password2", type="password", required)
-        input(placeholder="전화번호*", name="phoneNumber", type="number", required)
-        input(placeholder="그룹명*", name="groupName", type="text", required)
-        input(type="submit", value="회원가입")
+    div
+        |그룹관리 기능은 추후 업데이트 예정입니다.

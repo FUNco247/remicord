@@ -24,7 +24,7 @@ block contents
         input(placeholder="주유량", name="oiling", type="text", maxlength="3")
         input(type="submit", value="저장")
     hr
-    if records
+    div(class="showDayRecords")
         table 
             thead 
                 tr 
@@ -40,7 +40,7 @@ block contents
                     +record(record)
                 else
                     tr 
-                        td(colspan="7") 금일 운행 기록이 없습니다.
+                        td(colspan="7") 운행 기록이 없습니다.
 
 block scripts
     script(src="/static/js/clock.js")
