@@ -16,21 +16,22 @@ const setDate = () => {
 setDate();
 
 // check date range exceed 1 year
-const dateValidCheck = async () => {
+const dateValidCheck = () => {
   const date1 = new Date(dateStart.value);
   const date2 = new Date(dateEnd.value);
   const gap = date2.getTime() - date1.getTime();
   if (gap / (1000 * 60 * 60 * 24) > 364) {
-    await alert("최대 조회 가능 기간은 1년입니다.");
+    alert("최대 조회 가능 기간은 1년입니다.");
     return location.reload();
   } else if (date1.getTime() > date2.getTime()) {
-    await alert("시작일이 종료일 이후입니다.");
+    alert("시작일이 종료일 이후입니다.");
     return location.reload();
   }
 };
 
 // drawing HTML by using JSON "records"..... fuck....
-const drawHistoryTable = (obj, keys) => {
+const drawHistoryTable = async (obj) => {
+  const keys = Object.keys(obj);
   const showHistory = document.querySelector("div.showHistory");
   if (showHistory.innerHTML) {
     showHistory.innerHTML = "";
@@ -67,27 +68,36 @@ const drawHistoryTable = (obj, keys) => {
     "oiling",
     "memo",
   ];
-  for (i = 0; i < keys.length; i++) {
-    const key = keys[i];
+  for (let key of keys) {
     const recordArr = obj[key];
     //td.innerText = key;
     //trBody.appendChild(td);
-    for (j = 0; j < recordArr.length; j++) {
-      const rowData = recordArr[j];
+    let endCheck = false;
+    for (record of recordArr) {
       const trBody = document.createElement("tr");
-      for (k = 0; k < rowDataKeyArr.length; k++) {
+      trBody.classList.add("dayRecord");
+      for (let i = 0; i < rowDataKeyArr.length; i++) {
+        const rowDataKey = rowDataKeyArr[i];
         const td = document.createElement("td");
-        const rowDataKey = rowDataKeyArr[k];
-        if (rowData[rowDataKey]) {
-          td.innerText = rowData[rowDataKey];
+        if (record[rowDataKey]) {
+          td.innerText = record[rowDataKey];
           td.classList.add(`${rowDataKey}`);
         } else {
           td.innerText = "-";
           td.classList.add(`${rowDataKey}`);
         }
         trBody.appendChild(td);
+        if (i === rowDataKeyArr.length - 1) {
+          endCheck = true;
+        }
       }
-      tbody.append(trBody);
+      tbody.appendChild(trBody);
+    }
+    if (endCheck) {
+      const sumTr = document.createElement("tr");
+      sumTr.classList.add("daySum");
+      sumTr.innerText = "소계"; // 소계를 삽입할 방법을 강구해보자.....
+      tbody.appendChild(sumTr);
     }
   }
   // insert head & body
@@ -115,9 +125,8 @@ const getHistoryJson = async () => {
       console.log("request failed", error);
     });
   //console.log(records);
-  const objKeys = Object.keys(records);
   //console.log(objKeys);
-  await drawHistoryTable(records, objKeys);
+  await drawHistoryTable(records);
   const tdDateArr = document.querySelectorAll("td.date");
   const tdWaterArr = document.querySelectorAll("td.water");
   const tdOverTimeArr = document.querySelectorAll("td.overTime");

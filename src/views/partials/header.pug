@@ -1,19 +1,22 @@
 header
     h1 레미코드
     nav
-        ul
-            li
-                a(href="/") Home
-            if loggedIn
+        if loggedIn
+            ul
                 li 
-                    a(href=`/record/write/${loggedInUser._id}`) 기록작성
+                    a(href=`/record/write/${loggedInUser._id}`) 작성
                 li 
-                    a(href=`/record/history/${loggedInUser._id}`) 기록조회
+                    a(href=`/record/history/${loggedInUser._id}`) 수정
                 li 
-                    a(href=`/user/edit/${loggedInUser._id}`) 회원정보
-                li 
-                    a(href="/user/logout") 로그아웃
-            else
+                    a(href=`/record/history/${loggedInUser._id}`) 조회
+            small
+                span
+                    a(href=`/user/edit/${loggedInUser._id}`) #{loggedInUser.name}
+                    |님의 프로필
+                span
+                    a(href="/user/logout") 로그아웃       
+        else
+            ul
                 li 
                     a(href="/user/login") 로그인                    
                 li
