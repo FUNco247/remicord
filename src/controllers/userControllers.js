@@ -5,6 +5,59 @@ export const getEdit = (req, res) => {
   res.render("user/editProfile");
 };
 
+export const postEdit = async (req, res) => {
+  console.log(req.body);
+  const { user } = req.session;
+  const id = user._id;
+  const {
+    username,
+    name,
+    currentPW,
+    password,
+    password2,
+    phoneNumber,
+    plateNumber,
+  } = req.body;
+  const ok = await bcrypt.compare(currentPW, user.password);
+  const exist = await User.exists({ username, name });
+  if (!ok) {
+    return res.render("user/editProfile", {
+      errorMessage: "현재 비밀번호가 일치하지 않습니다.",
+    });
+  }
+  try {
+    if (password) {
+      const pwCheck = password !== password2;
+      if (pwCheck) {
+        return res.render("user/editProfile", {
+          errorMessage: "새 비밀번호가 일치하지 않습니다.",
+        });
+      }
+      if (exist) {
+        const user = await User.findById(id);
+        user.password = password;
+        await user.save();
+        return res.redirect("/user/logout");
+      }
+    } else {
+      await User.findByIdAndUpdate(id, {
+        phoneNumber,
+        plateNumber,
+      });
+      req.session.user.phoneNumber = phoneNumber;
+      req.session.user.plateNumber = plateNumber;
+      return res.render("user/editProfile", {
+        errorMessage: "회원정보가 변경되었습니다.",
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(400).render(`user/edit/${user._id}`, {
+      errorMessage: error._message,
+    });
+  }
+};
+
 export const handleLogin = (req, res) => {
   res.render("user/login");
 };

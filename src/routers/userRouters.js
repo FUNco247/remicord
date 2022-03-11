@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getEdit,
+  postEdit,
   handleLogin,
   handleLogout,
   handleJoin,
@@ -18,6 +19,6 @@ userRouter.get("/join", handleJoin);
 userRouter.route("/join/personal").get(getPersonalJoin).post(postPersonalJoin);
 userRouter.get("/join/group", getGroupJoin);
 
-userRouter.get("/edit/:id([0-9a-f]{24})", getEdit);
+userRouter.route("/edit/:id([0-9a-f]{24})").get(getEdit).post(postEdit);
 
 export default userRouter;
