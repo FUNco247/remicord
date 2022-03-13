@@ -1,6 +1,7 @@
 import express from "express";
 import {
   getWrite,
+  getEditApi,
   getHistory,
   reWrite,
   postWrite,
@@ -12,6 +13,7 @@ const recordRouter = express.Router();
 recordRouter.route("/write/:id([0-9a-f]{24})").get(getWrite).post(postWrite);
 recordRouter.get("/history/:id([0-9a-f]{24})", getHistory);
 recordRouter.get("/history/api", getHistoryApi);
-recordRouter.get("/edit", reWrite);
+recordRouter.get("/edit/api", getEditApi);
+recordRouter.get("/edit/:id([0-9a-f]{24})", reWrite);
 
 export default recordRouter;

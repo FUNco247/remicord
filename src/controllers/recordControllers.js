@@ -110,5 +110,12 @@ export const getHistoryApi = async (req, res) => {
 };
 
 export const reWrite = (req, res) => {
-  res.send("edit your driving record");
+  res.render("record/edit");
+};
+
+export const getEditApi = async (req, res) => {
+  const { user } = req.session;
+  const { searchDate } = req.query;
+  const record = await Record.find({ owner: user, date: searchDate });
+  res.json({ record });
 };

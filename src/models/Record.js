@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const recordSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   siteName: { type: String, required: true },
-  distance: { type: Number, required: true },
+  distance: { type: Number },
   water: { type: Boolean, default: false },
   overTime: { type: Boolean, default: false },
   nightSupport: { type: Boolean, default: false },

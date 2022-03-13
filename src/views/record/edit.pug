@@ -1,0 +1,41 @@
+extends ../base.pug
+
+block contents
+    if errorMessage
+        span=errorMessage
+    div
+        input(name="date", type="date")
+        input(placeholder="현장명", name="siteName", type="text", maxlength="15")
+        input(placeholder="키로수", name="distance", type="text", maxlength="3")
+        label
+            input(name="water", type="checkbox")
+            |폐수수거
+        label
+            input(name="overTime", type="checkbox")
+            |시간초과
+        label
+            input(name="nightSupport", type="checkbox")
+            |야간지원
+        input(placeholder="기티 메모", name="memo", type="text")
+        input(placeholder="주유량", name="oiling", type="text", maxlength="3")
+        button(class="addToList") 목록추가
+    hr
+    div(class="showDayRecords")
+        table 
+            thead 
+                tr 
+                    th 현장명
+                    th 주행거리(km)
+                    th 폐수수거
+                    th 시간초과
+                    th 시간외
+                    th 주유량(L)
+                    th 수정
+            tbody(class = "dataTable")
+                tr
+                    td(colspan="7") 운행기록 수정은 1일 단위만 가능합니다.
+    span    
+        button(class="saveChange") 저장하기
+
+block scripts
+    script(src="/static/js/editRecord.js")
