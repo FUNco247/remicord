@@ -1,12 +1,31 @@
 //레코드 어레이를 수정하여 저장된 데이터와 교체한다
 let recordArr;
-// boolean to string 'O' or '-'
+let removeBtn;
 
-const booleanToString = (arr) => {
+// boolean to string
+const convert = (arr) => {
   //console.log(arr);
   arr.forEach((element) => {
     element.innerText = element.innerText === "true" ? "O" : "-";
   });
+};
+
+const booleanToString = () => {
+  const tdWater = document.querySelectorAll("td.water");
+  const tdOverTime = document.querySelectorAll("td.overTime");
+  const tdNightSupport = document.querySelectorAll("td.nightSupport");
+  convert(tdWater);
+  convert(tdOverTime);
+  convert(tdNightSupport);
+};
+
+//recordArr 에서 제거하기
+
+const getDataArr = async (e) => {
+  const targetData = e.target.parentElement.classList[0].split("row")[1];
+  await recordArr.splice(Number(targetData), 1);
+  await drawRecord(recordArr);
+  booleanToString();
 };
 
 // 가져온 기록으로 테이블 채우기
@@ -23,7 +42,9 @@ const drawRecord = async (recordArr) => {
   if (dataTable.innerHTML) {
     dataTable.innerHTML = "";
   }
-  for await (record of recordArr) {
+  for (let i = 0; i < recordArr.length; i++) {
+    const record = recordArr[i];
+    let rowNumber = i;
     const tr = document.createElement("tr");
     for await (index of tableIndex) {
       const td = document.createElement("td");
@@ -34,9 +55,13 @@ const drawRecord = async (recordArr) => {
     const btn = document.createElement("button");
     btn.classList.add("removeBtn");
     btn.innerText = "삭제";
+    tr.classList.add(`row${rowNumber}`);
     tr.appendChild(btn);
     dataTable.appendChild(tr);
+    rowNumber = rowNumber + 1;
   }
+  removeBtn = document.querySelectorAll("button.removeBtn");
+  removeBtn.forEach((element) => element.addEventListener("click", getDataArr));
 };
 
 // recordArr (운행기록) 가져오기 (생성하기)
@@ -55,12 +80,7 @@ const getRecord = async () => {
       //console.log(record);
     });
   await drawRecord(recordArr);
-  const tdWater = document.querySelectorAll("td.water");
-  const tdOverTime = document.querySelectorAll("td.overTime");
-  const tdNightSupport = document.querySelectorAll("td.nightSupport");
-  booleanToString(tdWater);
-  booleanToString(tdOverTime);
-  booleanToString(tdNightSupport);
+  booleanToString();
 };
 
 dateSelectInput.addEventListener("input", getRecord);
@@ -92,17 +112,27 @@ const addToList = async () => {
   recordArr.push(newRecord);
   //console.log(newRecord);
   await drawRecord(recordArr);
-  const tdWater = document.querySelectorAll("td.water");
-  const tdOverTime = document.querySelectorAll("td.overTime");
-  const tdNightSupport = document.querySelectorAll("td.nightSupport");
-  booleanToString(tdWater);
-  booleanToString(tdOverTime);
-  booleanToString(tdNightSupport);
+  booleanToString();
   //console.log(recordArr);
 };
 
 addToListBtn.addEventListener("click", addToList);
 
-//recordArr 에서 제거하기
-
 //recordArr 를 DB에 교체, 저장하기
+
+const saveChangeBtn = document.querySelector("button.saveChangeBtn");
+const saveChange = async () => {
+  const dateQuery = document.querySelector("input[name=date]").value;
+  recordArr.unshift(dateQuery);
+  console.log(recordArr);
+  fetch("http://localhost:8282/record/edit/api", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json",
+    },
+    body: JSON.stringify(recordArr),
+  });
+  recordArr.shift();
+  alert("저장되었습니다.");
+};
+saveChangeBtn.addEventListener("click", saveChange);

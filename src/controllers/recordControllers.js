@@ -119,3 +119,21 @@ export const getEditApi = async (req, res) => {
   const record = await Record.find({ owner: user, date: searchDate });
   res.json({ record });
 };
+
+export const postEditApi = async (req, res) => {
+  //console.log(req.body);
+  const { user } = req.session;
+  const recordArr = req.body;
+  const dateQuery = recordArr[0];
+  recordArr.shift();
+  if (recordArr.length < 1) {
+    return await Record.deleteMany({ date: dateQuery, owner: user });
+  } else {
+    await Record.deleteMany({ date: dateQuery, owner: user });
+    for (let i = 0; i < recordArr.length; i++) {
+      const record = recordArr[i];
+      record["owner"] = user._id;
+      await Record.create(record);
+    }
+  }
+};

@@ -4,8 +4,8 @@ import minify from "gulp-csso";
 import autoprefixer from "gulp-autoprefixer";
 import node_sass from "node-sass";
 import sass from "sass";
-import babel from "gulp-babel";
-import uglify from "gulp-uglify";
+import bro from "gulp-bro";
+import babelify from "babelify";
 sass.compiler = node_sass;
 
 const routes = {
@@ -21,7 +21,7 @@ const routes = {
   },
 };
 
-const styles = () =>
+const styles = () => {
   gulp
     .src(routes.css.src)
     .pipe(sass().on("error", sass.logError))
@@ -33,6 +33,7 @@ const styles = () =>
     )
     .pipe(minify())
     .pipe(gulp.dest(routes.css.dest));
+};
 
 const watchStyle = () => {
   gulp.watch(routes.css.watch, styles);
@@ -48,12 +49,19 @@ const liveStyle = gulp.parallel([watchStyle]);
 
 export const style = gulp.series([prepareStyle, assetsStyle, liveStyle]);
 
-const scripts = () =>
+const scripts = async () => {
   gulp
     .src(routes.script.src)
-    .pipe(babel({}))
-    .pipe(uglify())
+    .pipe(
+      bro({
+        transform: [
+          babelify.configure({ presets: ["@babel/preset-env"] }),
+          ["uglifyify", { global: true }],
+        ],
+      })
+    )
     .pipe(gulp.dest(routes.script.dest));
+};
 
 const watchScript = () => {
   gulp.watch(routes.script.watch, scripts);
