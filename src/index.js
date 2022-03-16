@@ -32,7 +32,7 @@ app.use(
 
 app.use(localsMiddleware);
 app.use("/static", express.static("statics"));
-app.use("/dist", express.static("dist"));
+app.use("/dest", express.static("dest"));
 app.use("/", rootRouter);
 app.use("/db", setDataRouter);
 app.use("/user", userRouter);

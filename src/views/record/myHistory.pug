@@ -1,14 +1,15 @@
 extends ../base.pug
-include ../mixins/history
 
 block contents
-    div
-        |시작일
-        input(class="dateStart", type="date", name="dateStart")
-        |종료일
-        input(class="dateEnd", type="date", name="dateEnd")
-        button(class="getHistoryBtn") 조회하기
-    div.showHistory
+    div.wrap
+        div.inputBox
+            |시작일
+            input(class="dateStart", type="date", name="dateStart")
+            |종료일
+            input(class="dateEnd", type="date", name="dateEnd")
+            button(class="getHistoryBtn") 조회하기
+        div.summury
+        div.showHistory
 
 
 block scripts

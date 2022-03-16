@@ -4,8 +4,7 @@
   "description": "write driving record",
   "scripts": {
     "dev": "nodemon --exec babel-node src/index.js",
-    "style": "gulp style",
-    "script": "gulp script"
+    "style": "gulp style"
   },
   "repository": {
     "type": "git",
@@ -27,7 +26,6 @@
     "firebase": "^9.6.7",
     "mongoose": "^6.2.4",
     "morgan": "^1.10.0",
-    "node-sass": "^7.0.1",
     "pug": "^3.0.2",
     "url": "^0.11.0"
   },
@@ -40,11 +38,13 @@
     "babelify": "^10.0.0",
     "del": "^6.0.0",
     "gulp": "^4.0.2",
-    "gulp-autoprefixer": "^8.0.0",
+    "gulp-autoprefixer": "^6.1.0",
     "gulp-bro": "^2.0.0",
-    "gulp-csso": "^4.0.1",
-    "gulp-sass": "^5.1.0",
+    "gulp-csso": "^3.0.1",
+    "gulp-sass": "^4.0.2",
     "gulp-uglify": "^3.0.2",
+    "minify": "^8.0.4",
+    "node-sass": "^4.12.0",
     "nodemon": "^2.0.15",
     "sass": "^1.49.9",
     "uglifyify": "^5.0.2"

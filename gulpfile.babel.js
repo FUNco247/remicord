@@ -1,27 +1,20 @@
 import gulp from "gulp";
 import del from "del";
+import sass from "gulp-sass";
 import minify from "gulp-csso";
 import autoprefixer from "gulp-autoprefixer";
-import node_sass from "node-sass";
-import sass from "sass";
-import bro from "gulp-bro";
-import babelify from "babelify";
-sass.compiler = node_sass;
+
+sass.compiler = require("node-sass");
 
 const routes = {
   css: {
     watch: "statics/scss/*",
-    src: "statics/scss/**/*.scss",
-    dest: "dist/css",
-  },
-  script: {
-    watch: "statics/js/*",
-    src: "statics/js/**/*.js",
-    dest: "dist/js",
+    src: "statics/scss/styles.scss",
+    dest: "dest/css",
   },
 };
 
-const styles = () => {
+const styles = () =>
   gulp
     .src(routes.css.src)
     .pipe(sass().on("error", sass.logError))
@@ -33,46 +26,17 @@ const styles = () => {
     )
     .pipe(minify())
     .pipe(gulp.dest(routes.css.dest));
-};
 
-const watchStyle = () => {
+const watch = () => {
   gulp.watch(routes.css.watch, styles);
 };
 
-const cleanStyle = () => del(["dist/styles.css"]);
+const clean = () => del(["dest/"]);
 
-const prepareStyle = gulp.series([cleanStyle]);
+const prepare = gulp.series([clean]);
 
-const assetsStyle = gulp.series([styles]);
+const assets = gulp.series([styles]);
 
-const liveStyle = gulp.parallel([watchStyle]);
+const live = gulp.parallel([watch]);
 
-export const style = gulp.series([prepareStyle, assetsStyle, liveStyle]);
-
-const scripts = async () => {
-  gulp
-    .src(routes.script.src)
-    .pipe(
-      bro({
-        transform: [
-          babelify.configure({ presets: ["@babel/preset-env"] }),
-          ["uglifyify", { global: true }],
-        ],
-      })
-    )
-    .pipe(gulp.dest(routes.script.dest));
-};
-
-const watchScript = () => {
-  gulp.watch(routes.script.watch, scripts);
-};
-
-const cleanScripts = () => del(["dis/js"]);
-
-const prepareScript = gulp.series([cleanScripts]);
-
-const assetsScript = gulp.series([scripts]);
-
-const liveScript = gulp.parallel([watchScript]);
-
-export const script = gulp.series([prepareScript, assetsScript, liveScript]);
+export const style = gulp.series([prepare, assets, live]);

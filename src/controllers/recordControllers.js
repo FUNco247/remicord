@@ -31,9 +31,9 @@ export const postWrite = async (req, res) => {
       date,
       siteName,
       distance,
-      water: water === "on",
-      overTime: overTime === "on",
-      nightSupport: nightSupport === "on",
+      water: water === "on" ? 1 : 0,
+      overTime: overTime === "on" ? 1 : 0,
+      nightSupport: nightSupport === "on" ? 1 : 0,
       oiling,
       memo,
       owner: id,
@@ -50,20 +50,20 @@ export const removeTodaysRecord = async (req, res) => {
   const { user } = req.session;
   let { date, siteName, distance, water, overTime, nightSupport, oiling } =
     req.body;
-  water = water === "O";
-  overTime = overTime === "O";
-  nightSupport = nightSupport === "O";
+  water = water === "O" ? 1 : 0;
+  overTime = overTime === "O" ? 1 : 0;
+  nightSupport = nightSupport === "O" ? 1 : 0;
   oiling = Number(oiling) > 0 ? Number(oiling) : null;
   //console.log(date, siteName, distance, water, overTime, nightSupport, oiling);
   try {
     await Record.findOneAndDelete({
-      date: date,
-      siteName: siteName,
-      distance: distance,
-      water: water,
-      overTime: overTime,
-      nightSupport: nightSupport,
-      oiling: oiling,
+      date,
+      siteName,
+      distance,
+      water,
+      overTime,
+      nightSupport,
+      oiling,
       owner: user,
     });
     //return res.redirect(`/record/write/${id}`);
@@ -147,11 +147,19 @@ export const getHistoryApi = async (req, res) => {
           totalOiling: {
             $sum: "$oiling",
           },
+          totalWater: {
+            $sum: "$water",
+          },
+          totalOverTime: {
+            $sum: "$overTime",
+          },
+          totalNightSupport: {
+            $sum: "$nightSupport",
+          },
         },
       },
     ]);
     history["sumTotal"] = sumTotal;
-    console.log(history);
     res.json(history);
   } catch (error) {
     res.send(error._message);
@@ -181,6 +189,9 @@ export const postEditApi = async (req, res) => {
     await Record.deleteMany({ date: dateQuery, owner: user });
     for (let i = 0; i < recordArr.length; i++) {
       const record = recordArr[i];
+      record["water"] = record["water"] == true ? 1 : 0;
+      record["overTime"] = record["overTime"] == true ? 1 : 0;
+      record["nightSupport"] = record["nightSupport"] == true ? 1 : 0;
       record["owner"] = user._id;
       await Record.create(record);
     }

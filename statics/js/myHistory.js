@@ -31,21 +31,24 @@ const dateValidCheck = () => {
 
 // drawing HTML by using JSON "records"..... fuck....
 const drawHistoryTable = async (obj) => {
-  console.log(obj);
+  let totalCyles = 0;
+  let sumTotalDistance = 0;
+  let sumTotalOiling = 0;
   const allkeys = Object.keys(obj);
   const keys = allkeys.filter(
     (e) =>
       /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(e) &&
       e.length < 11
   );
-  //  /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
-  console.log(keys);
   //console.log(keys);
+  const summury = document.querySelector("div.summury");
   const showHistory = document.querySelector("div.showHistory");
-  if (showHistory.innerHTML) {
+  if (showHistory.innerHTML || summury.innerHTML) {
     showHistory.innerHTML = "";
+    summury.innerHTML = "";
   }
   const table = document.createElement("table");
+  table.classList.add("historyTable");
   const thead = document.createElement("thead");
   const tbody = document.createElement("tbody");
   const tr = document.createElement("tr");
@@ -81,6 +84,7 @@ const drawHistoryTable = async (obj) => {
     const recordArr = obj[key];
     //td.innerText = key;
     //trBody.appendChild(td);
+    totalCyles = totalCyles + recordArr.length;
     let endCheck = false;
     for (record of recordArr) {
       const trBody = document.createElement("tr");
@@ -104,28 +108,32 @@ const drawHistoryTable = async (obj) => {
     }
     if (endCheck) {
       const sumTr = document.createElement("tr");
-      sumTr.classList.add(`daySum_${key}`);
+      const sumTd = document.createElement("td");
+      sumTr.classList.add("daySum");
+      sumTr.appendChild(sumTd);
+      sumTd.setAttribute("colspan", "8");
       const sumDayData = obj[`${key}_sum`];
       console.log(key, sumDayData);
       if (sumDayData.length > 0) {
         const sumDayDistance = sumDayData[0]["totalDistance"];
         const sumDayOiling = sumDayData[0]["totalOiling"];
         //console.log(sumDayDistance, sumDayOiling);
-        sumTr.innerText = `소 계 ▷ ${recordArr.length} 회전, 주행거리 : ${sumDayDistance} km, 주유량 : ${sumDayOiling} 리터`;
+        sumTd.innerText = `소 계 ▷ ${recordArr.length} 회전, 주행거리 : ${sumDayDistance} km, 주유량 : ${sumDayOiling} 리터`;
       } // 소계를 삽입할 방법을 강구해보자.....
       tbody.appendChild(sumTr);
     }
   }
-  const sumTotalTr = document.createElement("tr");
-  sumTotalTr.classList.add("totalSum");
   const sumTotalData = obj["sumTotal"];
   if (sumTotalData.length > 0) {
-    const sumTotalDistance = sumTotalData[0]["totalDistance"];
-    const sumTotalOiling = sumTotalData[0]["totalOiling"];
+    sumTotalDistance = sumTotalData[0]["totalDistance"];
+    sumTotalOiling = sumTotalData[0]["totalOiling"];
+    sumTotalWater = sumTotalData[0]["totalWater"];
+    sumTotalOverTime = sumTotalData[0]["totalOverTime"];
+    sumTotalNightSupport = sumTotalData[0]["totalNightSupport"];
     //console.log(sumTotalDistance, sumTotalOiling);
-    sumTotalTr.innerText = `Total ▶ 추가필요 회전, 주행거리 : ${sumTotalDistance} km, 주유량 : ${sumTotalOiling} 리터`;
+    summury.innerHTML = `Total ▶ <span>${totalCyles}</span> 회전, 주행거리 : <span>${sumTotalDistance}</span> km, 
+    주유량 : <span>${sumTotalOiling}</span> 리터, 회수수 : <span>${sumTotalWater}</span> 회, OT : ${sumTotalOverTime} 회, 야간 : ${sumTotalNightSupport} 회`;
   }
-  tbody.appendChild(sumTotalTr);
   // insert head & body
   table.appendChild(thead);
   table.appendChild(tbody);
@@ -159,13 +167,13 @@ const getHistoryJson = async () => {
   const tdNightSupportArr = document.querySelectorAll("td.nightSupport");
   tdDateArr.forEach((x) => (x.innerText = x.innerText.split("T")[0]));
   tdWaterArr.forEach(
-    (x) => (x.innerText = x.innerText == "true" ? "O" : x.innerText)
+    (x) => (x.innerText = x.innerText == 1 ? "O" : x.innerText)
   );
   tdOverTimeArr.forEach(
-    (x) => (x.innerText = x.innerText == "true" ? "O" : x.innerText)
+    (x) => (x.innerText = x.innerText == 1 ? "O" : x.innerText)
   );
   tdNightSupportArr.forEach(
-    (x) => (x.innerText = x.innerText == "true" ? "O" : x.innerText)
+    (x) => (x.innerText = x.innerText == 1 ? "O" : x.innerText)
   );
 };
 
