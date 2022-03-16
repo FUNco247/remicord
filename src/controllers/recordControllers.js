@@ -89,10 +89,10 @@ export const getHistoryApi = async (req, res) => {
   const { startDate, endDate } = req.query;
   const { user } = req.session;
   //get day list to check
-  let daylist = getDaysArray(new Date(startDate), new Date(endDate)).map(
+  const daylist = getDaysArray(new Date(startDate), new Date(endDate)).map(
     (day) => day.toISOString().slice(0, 10)
   );
-  let historyArr = [];
+
   let history = {};
   try {
     for (let i = 0; i < daylist.length; i++) {
@@ -101,8 +101,57 @@ export const getHistoryApi = async (req, res) => {
         date: daylist[i],
       });
       history[daylist[i]] = records;
-      historyArr.push(history);
+      //// 일별 주행거리, 주유량 합
+      const sumDay = await Record.aggregate([
+        {
+          $match: {
+            $and: [{ date: new Date(daylist[i]) }],
+          },
+        },
+        {
+          $group: {
+            _id: "sumDay",
+            totalDistance: {
+              $sum: "$distance",
+            },
+            totaloiling: {
+              $sum: "$oiling",
+            },
+          },
+        },
+      ]);
+      ////
+
+      history[`${daylist[i]}_sum`] = sumDay;
     }
+    //// 총기간 주행거리, 주유량 합
+    const sumTotal = await Record.aggregate([
+      {
+        $match: {
+          $and: [
+            {
+              date: {
+                $gte: new Date(daylist[0]),
+                $lte: new Date(daylist[daylist.length - 1]),
+              },
+            },
+          ],
+        },
+      },
+      {
+        $group: {
+          _id: "sumTotal",
+          totalDistance: {
+            $sum: "$distance",
+          },
+          totaloiling: {
+            $sum: "$oiling",
+          },
+        },
+      },
+    ]);
+    history["sumTotal"] = sumTotal;
+    console.log(history);
     res.json(history);
   } catch (error) {
     res.send(error._message);

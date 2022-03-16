@@ -32,6 +32,7 @@ const dateValidCheck = () => {
 // drawing HTML by using JSON "records"..... fuck....
 const drawHistoryTable = async (obj) => {
   const keys = Object.keys(obj);
+  console.log(keys);
   const showHistory = document.querySelector("div.showHistory");
   if (showHistory.innerHTML) {
     showHistory.innerHTML = "";
@@ -124,7 +125,7 @@ const getHistoryJson = async () => {
     .catch(function (error) {
       console.log("request failed", error);
     });
-  //console.log(records);
+  console.log(records);
   //console.log(objKeys);
   await drawHistoryTable(records);
   const tdDateArr = document.querySelectorAll("td.date");
