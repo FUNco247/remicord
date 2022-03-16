@@ -31,8 +31,9 @@ const dateValidCheck = () => {
 
 // drawing HTML by using JSON "records"..... fuck....
 const drawHistoryTable = async (obj) => {
-  const keys = Object.keys(obj);
-  console.log(keys);
+  const allkeys = Object.keys(obj);
+  const keys = allkeys.filter((e) => e.length < 11);
+  //console.log(keys);
   const showHistory = document.querySelector("div.showHistory");
   if (showHistory.innerHTML) {
     showHistory.innerHTML = "";
@@ -96,8 +97,14 @@ const drawHistoryTable = async (obj) => {
     }
     if (endCheck) {
       const sumTr = document.createElement("tr");
-      sumTr.classList.add("daySum");
-      sumTr.innerText = "소계"; // 소계를 삽입할 방법을 강구해보자.....
+      sumTr.classList.add(`daySum_${key}`);
+      const sumDayData = obj[`${key}_sum`];
+      if (sumDayData) {
+        const sumDayDistance = sumDayData[0]["totalDistance"];
+        const sumDayOiling = sumDayData[0]["totalOiling"];
+        console.log(sumDayDistance, sumDayOiling);
+        sumTr.innerText = `Total ▶ ${recordArr.length} 회전, 주행거리 : ${sumDayDistance} km, 주유량 : ${sumDayOiling} 리터`;
+      } // 소계를 삽입할 방법을 강구해보자.....
       tbody.appendChild(sumTr);
     }
   }

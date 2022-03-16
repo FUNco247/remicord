@@ -114,7 +114,7 @@ export const getHistoryApi = async (req, res) => {
             totalDistance: {
               $sum: "$distance",
             },
-            totaloiling: {
+            totalOiling: {
               $sum: "$oiling",
             },
           },
