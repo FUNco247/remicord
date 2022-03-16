@@ -31,8 +31,15 @@ const dateValidCheck = () => {
 
 // drawing HTML by using JSON "records"..... fuck....
 const drawHistoryTable = async (obj) => {
+  console.log(obj);
   const allkeys = Object.keys(obj);
-  const keys = allkeys.filter((e) => e.length < 11);
+  const keys = allkeys.filter(
+    (e) =>
+      /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/.test(e) &&
+      e.length < 11
+  );
+  //  /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/
+  console.log(keys);
   //console.log(keys);
   const showHistory = document.querySelector("div.showHistory");
   if (showHistory.innerHTML) {
@@ -99,15 +106,26 @@ const drawHistoryTable = async (obj) => {
       const sumTr = document.createElement("tr");
       sumTr.classList.add(`daySum_${key}`);
       const sumDayData = obj[`${key}_sum`];
-      if (sumDayData) {
+      console.log(key, sumDayData);
+      if (sumDayData.length > 0) {
         const sumDayDistance = sumDayData[0]["totalDistance"];
         const sumDayOiling = sumDayData[0]["totalOiling"];
-        console.log(sumDayDistance, sumDayOiling);
-        sumTr.innerText = `Total ▶ ${recordArr.length} 회전, 주행거리 : ${sumDayDistance} km, 주유량 : ${sumDayOiling} 리터`;
+        //console.log(sumDayDistance, sumDayOiling);
+        sumTr.innerText = `소 계 ▷ ${recordArr.length} 회전, 주행거리 : ${sumDayDistance} km, 주유량 : ${sumDayOiling} 리터`;
       } // 소계를 삽입할 방법을 강구해보자.....
       tbody.appendChild(sumTr);
     }
   }
+  const sumTotalTr = document.createElement("tr");
+  sumTotalTr.classList.add("totalSum");
+  const sumTotalData = obj["sumTotal"];
+  if (sumTotalData.length > 0) {
+    const sumTotalDistance = sumTotalData[0]["totalDistance"];
+    const sumTotalOiling = sumTotalData[0]["totalOiling"];
+    //console.log(sumTotalDistance, sumTotalOiling);
+    sumTotalTr.innerText = `Total ▶ 추가필요 회전, 주행거리 : ${sumTotalDistance} km, 주유량 : ${sumTotalOiling} 리터`;
+  }
+  tbody.appendChild(sumTotalTr);
   // insert head & body
   table.appendChild(thead);
   table.appendChild(tbody);
@@ -132,7 +150,7 @@ const getHistoryJson = async () => {
     .catch(function (error) {
       console.log("request failed", error);
     });
-  console.log(records);
+  //console.log(records);
   //console.log(objKeys);
   await drawHistoryTable(records);
   const tdDateArr = document.querySelectorAll("td.date");
