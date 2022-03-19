@@ -2,7 +2,8 @@ header
     div.header
         nav.navigationWrapper
             div.logoWrapper
-                span.stylish 레미코드
+                span.stylish
+                    a(href='/') 레미코드
                 span.logo for Mixer Truck Driver
             div.linkWtapper
                 if loggedIn
@@ -13,17 +14,19 @@ header
                             a(class="link", href=`/record/edit/${loggedInUser._id}`) 기록수정
                         li.parent
                             a(class="link", href=`/record/history/${loggedInUser._id}`) 기간별조회
-                    div    
-                        small
-                            span
-                                a(class="link", href=`/user/edit/${loggedInUser._id}`) #{loggedInUser.name}
-                                |님의 프로필
-                            span
-                                a(class="link", href="/user/logout") 로그아웃       
                 else
                     ul.navigation
                         li.parent
                             a(class="link", href="/user/login") 로그인                    
                         li.parent
-                            a(class="link", href="/user/join") 회원가입
+                            a(class="link", href="/user/join/personal") 회원가입
+        if loggedIn
+            div.profileWrap
+                div
+                    small
+                        span
+                            a(class="link", href=`/user/edit/${loggedInUser._id}`) #{loggedInUser.name}
+                            |님의 프로필
+                        span
+                            a(class="link", href="/user/logout") 로그아웃       
     hr

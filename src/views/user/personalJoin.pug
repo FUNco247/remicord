@@ -1,26 +1,31 @@
 extends ../base.pug
 
 block contents
-    if errorMessage
-        span=errorMessage
-    form(method="POST")
-        label 아이디*
-            input(placeholder="5자 ~ 15자 영문, 숫자*", name="username", type="text", required, minlength="5", maxlength="15")
-            span
-        label 이름*
-            input(placeholder="ex)홍길동", name="name", type="text", required, minlength="2", maxlength="5" )
-            span
-        label 비밀번호*
-            input(placeholder="8~20 영문, 숫자", name="password", type="password", required, minlength="8", maxlength="20")
-            span
-        label 비밀번호 확인*
-            input(placeholder="위와 동일하게 입력", name="password2", type="password", required, minlength="8", maxlength="20")
-        label 전화번호*
-            input(placeholder="11자리 숫자", name="phoneNumber", type="tel", required, pattern="[0-9]{11}")
-            span
-                small ("-" 없이 숫자만)
-        label 차량번호*
-            input(placeholder="ex)서울00가0000", name="plateNumber", type="text", required, minlength="7", maxlength="10")
-        input(type="submit", value="회원가입")
-
+    div(id="input-box")
+        if errorMessage
+            span=errorMessage
+        div.left
+            form(method="POST")
+                div.inputWrap
+                    label 아이디*
+                        input(placeholder="5자 ~ 15자 영문, 숫자*", name="username", type="text", required, minlength="5", maxlength="15")
+                        span
+                    label 이름*
+                        input(placeholder="ex)홍길동", name="name", type="text", required, minlength="2", maxlength="5" )
+                        span
+                    label 비밀번호*
+                        input(placeholder="8~20 영문, 숫자", name="password", type="password", required, minlength="8", maxlength="20")
+                        span
+                    label 비밀번호 확인*
+                        input(placeholder="위와 동일하게 입력", name="password2", type="password", required, minlength="8", maxlength="20")
+                    label 전화번호*  
+                        span
+                            small ("-" 없이 숫자만)
+                        input(placeholder="11자리 숫자", name="phoneNumber", type="tel", required, pattern="[0-9]{11}")                
+                    label 차량번호*
+                        input(placeholder="ex)서울00가0000", name="plateNumber", type="text", required, minlength="7", maxlength="10")
+                    div.submitBtn
+                        input(type="submit", value="회원가입")
+        div.right
+            img(Src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVrgUZSXWAqQgq7M5WlkDVt2_82VZEsRZ55-QoKL7enaKEq_NZvPQcQNapFAf0vn4kKls&usqp=CAU')
 block scripts
