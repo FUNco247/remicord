@@ -31,3 +31,8 @@ for (let i = 0; i < removeBtn.length; i++) {
     window.location.reload();
   });
 }
+
+//hide date input
+
+const dateInput = document.querySelector("input[name=date]");
+dateInput.style.display = "none";

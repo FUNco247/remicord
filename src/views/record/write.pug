@@ -2,27 +2,36 @@ extends ../base.pug
 include ../mixins/record
 
 block contents
-    div
-        b.calendar
-        h1.clock
-    if errorMessage
-        span=errorMessage
-    form(method="POST")
-        input(name="date", type="date", value=`${years}-${months}-${dates}`, readonly)
-        input(placeholder="현장명", name="siteName", type="text", maxlength="15")
-        input(placeholder="키로수", name="distance", type="text", maxlength="3")
-        label
-            input(name="water", type="checkbox")
-            |폐수수거
-        label
-            input(name="overTime", type="checkbox")
-            |시간초과
-        label
-            input(name="nightSupport", type="checkbox")
-            |야간지원
-        input(placeholder="기티 메모", name="memo", type="text")
-        input(placeholder="주유량", name="oiling", type="text", maxlength="3")
-        input(type="submit", value="저장")
+    div.clockWrap
+        div.calendarBox
+            b.calendar
+        div.clockBox
+            h1.clock
+    div(class='write-input-box')
+        if errorMessage
+            span=errorMessage
+        form(method="POST")
+            div
+                input(name="date", type="date", value=`${years}-${months}-${dates}`, readonly)
+                input(placeholder="현장명", name="siteName", type="text", maxlength="15")
+                input(placeholder="키로수", name="distance", type="text", maxlength="3")
+                input(placeholder="주유량", name="oiling", type="text", maxlength="3")
+            div
+                div
+                    input(placeholder="기티 메모", name="memo", type="text")
+                div    
+                    div.labelbox     
+                        label
+                            input(name="water", type="checkbox")
+                            | 폐수수거
+                        label
+                            input(name="overTime", type="checkbox")
+                            | 시간초과
+                        label
+                            input(name="nightSupport", type="checkbox")
+                            | 야간지원
+            div
+                input(type="submit", value="저장")
     hr
     div(class="showDayRecords")
         table 

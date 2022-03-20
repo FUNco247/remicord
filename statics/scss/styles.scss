@@ -13,7 +13,8 @@ body {
   flex-direction: column;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(45deg, #eba308 0%, #020fbd 100%);
+  background-color: whitesmoke;
+  //background: linear-gradient(45deg, #eba308 0%, #020fbd 100%);
 }
 
 /* nav bar */
@@ -257,4 +258,140 @@ input[type="submit"]:active {
   opacity: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
+}
+
+// for data tables
+
+// write.pug
+
+table {
+  width: 800px;
+  border-collapse: collapse;
+  overflow: hidden;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+th,
+td {
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+th {
+  text-align: left;
+}
+
+thead {
+  th {
+    background-color: #55608f;
+  }
+}
+
+tbody {
+  tr {
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+  }
+  td {
+    position: relative;
+    &:hover {
+      &:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: -9999px;
+        bottom: -9999px;
+        background-color: rgba(255, 255, 255, 0.2);
+        z-index: -1;
+      }
+    }
+  }
+}
+
+// clock in write.pug
+.clockWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  b,
+  h1 {
+    color: whitesmoke;
+  }
+}
+
+// inputbox in write.pug
+.write-input-box {
+  font-weight: border;
+  color: whitesmoke;
+  padding: 20px;
+  width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  .labelbox {
+    border-radius: 10px;
+    background-color: whitesmoke;
+    width: 350px;
+    height: 45px;
+    color: #1e1f21;
+  }
+  input {
+    margin: 0;
+    padding: 0;
+    color: #1e1f21;
+    font-size: larger;
+  }
+  input[name="memo"] {
+    width: 300px;
+  }
+  label {
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    justify-content: space-between;
+  }
+  input[type="checkbox"] {
+    margin-right: 7px;
+    transform: scale(1.5);
+    display: inline-block;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    div {
+      height: 50px;
+      text-align: center;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      width: 800px;
+    }
+  }
+  input[type="submit"] {
+    margin-top: 10px;
+    width: 250px;
+    height: 45px;
+    background: #eba308;
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-weight: bolder;
+    font-size: larger;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    &:hover {
+      background-color: #020fbd;
+      font-size: x-large;
+    }
+  }
 }
