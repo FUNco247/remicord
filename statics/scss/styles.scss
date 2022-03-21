@@ -1,10 +1,21 @@
 /* styles of main page */
 @import url("https://fonts.googleapis.com/css2?family=B612+Mono&family=DM+Serif+Display:ital@0;1&display=swap");
 
+// variable
+
+$bgcolor: #1e1f21;
+$divbgcolor: #292a2e; //
+$truckyellow: #eba308;
+$eugeneblue: #020fbd;
+$boxshadow: rgba(0, 0, 0, 0.4);
+$logored: tomato;
 * {
   box-sizing: border-box;
 }
-
+footer {
+  margin-top: 25px;
+  color: whitesmoke;
+}
 body {
   font-family: "Roboto", sans-serif;
   margin: 0;
@@ -12,8 +23,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh;
-  background-color: whitesmoke;
+  background-color: $bgcolor;
   //background: linear-gradient(45deg, #eba308 0%, #020fbd 100%);
 }
 
@@ -22,7 +32,7 @@ body {
 a {
   cursor: pointer;
   transition: all 200ms linear;
-  color: #eba308;
+  color: $truckyellow;
   text-decoration: none;
 }
 a:hover {
@@ -59,9 +69,9 @@ a:hover {
   justify-content: center;
   margin-top: 50px;
   padding: 10px;
-  background-color: whitesmoke;
-  box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.25);
-  color: #eba308;
+  background-color: $divbgcolor;
+  box-shadow: 0 5px 15px 0 $boxshadow;
+  color: $truckyellow;
   text-transform: uppercase;
   overflow: hidden;
   width: 800px;
@@ -76,7 +86,7 @@ a:hover {
     }
     .logo {
       padding-left: 4px;
-      color: #020fbd;
+      color: $logored;
       font-weight: bold;
     }
   }
@@ -106,9 +116,9 @@ a:hover {
       align-items: center;
       text-decoration: none;
       transition: all 0.3s ease-in-out;
-      color: #eba308;
+      color: $truckyellow;
       &:hover {
-        color: #020fbd;
+        color: $eugeneblue;
         font-weight: bolder;
         li a {
           font-size: 30px;
@@ -133,7 +143,7 @@ td {
   width: 800px;
   height: 800px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px $boxshadow;
   .login-input-wrap {
     display: flex;
     flex-direction: column;
@@ -153,12 +163,25 @@ td {
       height: 50px;
       margin: 5px;
     }
+    input,
+    select,
+    textarea {
+      color: $truckyellow;
+    }
     .submitBtn {
       text-align: center;
-      .loginBtn {
+      input[type="submit"] {
+        background: $truckyellow;
+        border: none;
+        border-radius: 10px;
+        color: whitesmoke;
+        font-weight: bolder;
         font-size: larger;
+        text-transform: uppercase;
+        transition: 0.1s ease;
+        cursor: pointer;
         &:hover {
-          background-color: #020fbd;
+          background-color: $eugeneblue;
           font-size: x-large;
         }
       }
@@ -182,6 +205,11 @@ td {
 .left {
   box-sizing: border-box;
   padding: 40px;
+  input,
+  select,
+  textarea {
+    color: $truckyellow;
+  }
 }
 
 .right {
@@ -189,7 +217,7 @@ td {
   padding: 40px;
   img {
     width: 400px;
-    height: 508px;
+    height: 600px;
   }
 }
 
@@ -212,8 +240,8 @@ input[type="password"] {
   width: 250px;
   height: 45px;
   border: none;
-  background-color: whitesmoke;
-  border-bottom: 1px solid #eba308;
+  background-color: #292a2e;
+  border-bottom: 1px solid whitesmoke;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 15px;
@@ -221,9 +249,9 @@ input[type="password"] {
 }
 
 input[type="text"]:focus,
-input[type="tel"],
+input[type="tel"]:focus,
 input[type="password"]:focus {
-  border-bottom: 1px solid #eba308;
+  border-bottom: 1px solid $truckyellow;
   color: #eba308;
   transition: 0.2s ease;
 }
@@ -270,7 +298,7 @@ table {
   overflow: hidden;
   padding: 10px;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px $boxshadow;
 }
 
 th,
@@ -286,7 +314,8 @@ th {
 
 thead {
   th {
-    background-color: #55608f;
+    background-color: $eugeneblue;
+    text-align: center;
   }
 }
 
@@ -298,6 +327,7 @@ tbody {
   }
   td {
     position: relative;
+    text-align: center;
     &:hover {
       &:before {
         content: "";
@@ -312,44 +342,106 @@ tbody {
     }
   }
 }
+.removeBtn {
+  //background: linear-gradient(to bottom right, $truckyellow, black);
+  background-color: $truckyellow;
+  border: 0;
+  border-radius: 12px;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system, system-ui, "Segoe UI", Roboto, Helvetica, Arial,
+    sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow 0.2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+}
 
+.removeBtn:not([disabled]):focus {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.removeBtn:not([disabled]):hover {
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
+}
 // clock in write.pug
 .clockWrap {
   display: flex;
+  background-color: $divbgcolor;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  b,
+  box-shadow: 0 2px 4px $boxshadow;
+  b {
+    margin: 0;
+    padding: 0;
+    color: whitesmoke;
+  }
   h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 50px;
     color: whitesmoke;
   }
 }
 
 // inputbox in write.pug
 .write-input-box {
+  margin-top: 25px;
+  margin-bottom: 21px;
   font-weight: border;
+  background-color: $divbgcolor;
   color: whitesmoke;
   padding: 20px;
   width: 800px;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-  .labelbox {
-    border-radius: 10px;
-    background-color: whitesmoke;
-    width: 350px;
-    height: 45px;
-    color: #1e1f21;
-  }
+
   input {
-    margin: 0;
+    margin: 5px;
     padding: 0;
-    color: #1e1f21;
+    color: whitesmoke;
     font-size: larger;
+    border-radius: 0;
+  }
+  input,
+  select,
+  textarea {
+    color: $truckyellow;
+  }
+  input::placeholder {
+    color: whitesmoke;
+  }
+  input[name="siteName"] {
+    width: 250px;
+  }
+  input[name="distance"] {
+    width: 150px;
+  }
+  input[name="oiling"] {
+    width: 150px;
   }
   input[name="memo"] {
-    width: 300px;
+    width: 550px;
+  }
+  input[type="checkbox"] {
+    margin-right: 5px;
+    transform: scale(1.5);
+    display: inline-block;
   }
   label {
     display: flex;
@@ -357,11 +449,7 @@ tbody {
     font-size: larger;
     justify-content: space-between;
   }
-  input[type="checkbox"] {
-    margin-right: 7px;
-    transform: scale(1.5);
-    display: inline-block;
-  }
+  .formBox,
   form {
     display: flex;
     flex-direction: column;
@@ -372,15 +460,75 @@ tbody {
       text-align: center;
       display: flex;
       flex-direction: row;
-      justify-content: space-evenly;
+      justify-content: flex-start;
       width: 800px;
     }
+    .labelbox {
+      background-color: $divbgcolor;
+      width: 250px;
+      height: 45px;
+      margin: 5px;
+      border-bottom: solid 1px whitesmoke;
+      color: whitesmoke;
+    }
+    .labelbox2 {
+      background-color: $divbgcolor;
+      width: 330px;
+      height: 45px;
+      margin: 5px;
+      border-bottom: solid 1px whitesmoke;
+      color: whitesmoke;
+    }
+    .centerBox {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      button {
+        margin-top: 10px;
+        width: 220px;
+        height: 45px;
+        background: $truckyellow;
+        border: none;
+        border-radius: 10px;
+        color: whitesmoke;
+        font-weight: bolder;
+        font-size: larger;
+        text-transform: uppercase;
+        transition: 0.1s ease;
+        cursor: pointer;
+        &:hover {
+          background-color: $eugeneblue;
+          font-size: x-large;
+        }
+      }
+      input[name="date"] {
+        background-color: $divbgcolor;
+        text-align: center;
+        border: 1px solid whitesmoke;
+        border-radius: 10px;
+        width: 220px;
+        color-scheme: whitesmoke;
+      }
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+        border-radius: 4px;
+        margin-right: 2px;
+        opacity: 0.6;
+        filter: invert(0.8);
+      }
+    }
+    .edit-date-box {
+    }
+  }
+  .submitbox {
+    display: flex;
+    justify-content: center;
   }
   input[type="submit"] {
     margin-top: 10px;
-    width: 250px;
+    width: 220px;
     height: 45px;
-    background: #eba308;
+    background: $truckyellow;
     border: none;
     border-radius: 10px;
     color: whitesmoke;
@@ -390,7 +538,230 @@ tbody {
     transition: 0.1s ease;
     cursor: pointer;
     &:hover {
-      background-color: #020fbd;
+      background-color: $eugeneblue;
+      font-size: x-large;
+    }
+  }
+}
+.edit-saveBtn-box {
+  display: flex;
+  justify-content: center;
+  button {
+    margin-top: 10px;
+    width: 220px;
+    height: 45px;
+    background: $truckyellow;
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-weight: bolder;
+    font-size: larger;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    &:hover {
+      background-color: $eugeneblue;
+      font-size: x-large;
+    }
+  }
+}
+
+// for history page
+.history-date-inputBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $divbgcolor;
+  width: 800px;
+  margin: 5px;
+  border-bottom: solid 1px whitesmoke;
+  color: whitesmoke;
+  .labelBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 10px;
+    margin-left: 10px;
+    label {
+      text-align: center;
+      margin: 5px;
+    }
+    input {
+      margin-bottom: 5px;
+    }
+  }
+  button {
+    background: $divbgcolor;
+    height: 50px;
+    width: 50px;
+    font-size: large;
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    &:hover {
+      background-color: $eugeneblue;
+    }
+  }
+}
+.summury {
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 3px;
+  margin-bottom: 2px;
+  span {
+    color: $truckyellow;
+  }
+}
+
+@import url("https://fonts.googleapis.com/css2?family=Staatliches&display=swap");
+.home-text {
+  margin: 0;
+  background: $bgcolor;
+  color: tomato;
+  width: 800px;
+  height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.jt {
+  position: relative;
+  font-size: 85px;
+  font-family: "Staatliches", sans-serif;
+  text-transform: uppercase;
+  font-display: swap;
+  text-shadow: 0 0 10px tomato;
+}
+
+.jt__row {
+  display: block;
+}
+.jt__row:nth-child(1) {
+  clip-path: polygon(-10% 75%, 110% 75%, 110% 110%, -10% 110%);
+}
+.jt__row:nth-child(2) {
+  clip-path: polygon(-10% 50%, 110% 50%, 110% 75.3%, -10% 75.3%);
+}
+.jt__row:nth-child(3) {
+  clip-path: polygon(-10% 25%, 110% 25%, 110% 50.3%, -10% 50.3%);
+}
+.jt__row:nth-child(4) {
+  clip-path: polygon(-10% 0%, 110% 0%, 110% 25.3%, -10% 25.3%);
+}
+
+.jt__row.jt__row--sibling {
+  position: absolute;
+  top: 0;
+  left: 0;
+  user-select: none;
+  witdh: 800px;
+}
+
+.jt__text {
+  height: 500px;
+  transform-origin: bottom left;
+  animation: moveIn 3s 0s cubic-bezier(0.36, 0, 0.06, 1) alternate infinite;
+}
+
+.jt__text2 {
+  color: #195be9;
+  text-shadow: 0 0 10px #212ee7;
+  height: 500px;
+  transform-origin: bottom left;
+  animation: moveIn 4s 0s cubic-bezier(0.36, 0, 0.06, 1) alternate infinite;
+}
+
+.jt__text3 {
+  color: $truckyellow;
+  height: 500px;
+  transform-origin: bottom left;
+  animation: moveIn 6s 0s cubic-bezier(0.36, 0, 0.06, 1) alternate infinite;
+}
+
+.jt__row:nth-child(1) .jt__text {
+  transform: translateY(-0.1em);
+}
+.jt__row:nth-child(2) .jt__text {
+  transform: translateY(-0.3em) scaleY(1.1);
+}
+.jt__row:nth-child(3) .jt__text {
+  transform: translateY(-0.5em) scaleY(1.2);
+}
+.jt__row:nth-child(4) .jt__text {
+  transform: translateY(-0.7em) scaleY(1.3);
+}
+.jt__row:nth-child(5) .jt__text {
+  transform: translateY(-0.9em) scaleY(1.4);
+}
+.jt__row:nth-child(6) .jt__text {
+  transform: translateY(-1.1em) scaleY(1.5);
+}
+
+@keyframes moveIn {
+  50%,
+  100% {
+    transform: translateY(0em);
+  }
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    filter: blur(0px);
+  }
+}
+
+.debug .jt__row:nth-child(even) {
+  color: black;
+  background: white;
+}
+.debug .jt__row:nth-child(odd) {
+  color: white;
+  background: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+// edit profile
+.editProfile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 800px;
+  height: 800px;
+  background-color: $divbgcolor;
+  color: whitesmoke;
+  input::placeholder {
+    color: gray;
+  }
+  input {
+    background-color: whitesmoke(240, 234, 149);
+  }
+  input,
+  select,
+  textarea {
+    color: $truckyellow;
+  }
+  input[type="submit"] {
+    background: $truckyellow;
+    border: none;
+    border-radius: 10px;
+    color: whitesmoke;
+    font-weight: bolder;
+    font-size: larger;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    &:hover {
+      background-color: $eugeneblue;
       font-size: x-large;
     }
   }

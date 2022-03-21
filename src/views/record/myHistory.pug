@@ -2,12 +2,15 @@ extends ../base.pug
 
 block contents
     div.wrap
-        div.inputBox
-            |시작일
-            input(class="dateStart", type="date", name="dateStart")
-            |종료일
-            input(class="dateEnd", type="date", name="dateEnd")
-            button(class="getHistoryBtn") 조회하기
+        div.history-date-inputBox
+            div.labelBox
+                label(for="dateStart") 시작일
+                input(id="dateStart", class="dateStart", type="date", name="dateStart")
+            div.labelBox
+                label(for="dateEnd") 종료일
+                input(id="dateEnd", class="dateEnd", type="date", name="dateEnd")
+            button(class="getHistoryBtn")
+                i(class="fa fa-search" style="font-size:24px")
         div.summury
         div.showHistory
 

@@ -132,7 +132,7 @@ const drawHistoryTable = async (obj) => {
     sumTotalNightSupport = sumTotalData[0]["totalNightSupport"];
     //console.log(sumTotalDistance, sumTotalOiling);
     summury.innerHTML = `Total ▶ <span>${totalCyles}</span> 회전, 주행거리 : <span>${sumTotalDistance}</span> km, 
-    주유량 : <span>${sumTotalOiling}</span> 리터, 회수수 : <span>${sumTotalWater}</span> 회, OT : ${sumTotalOverTime} 회, 야간 : ${sumTotalNightSupport} 회`;
+    주유량 : <span>${sumTotalOiling}</span> 리터, 회수수 : <span>${sumTotalWater}</span> 회, OT : <span>${sumTotalOverTime}</span> 회, 야간 : <span>${sumTotalNightSupport}</span> 회`;
   }
   // insert head & body
   table.appendChild(thead);

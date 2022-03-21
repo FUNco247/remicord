@@ -22,7 +22,8 @@ const booleanToString = () => {
 //recordArr 에서 제거하기
 
 const getDataArr = async (e) => {
-  const targetData = e.target.parentElement.classList[0].split("row")[1];
+  const targetData =
+    e.target.parentElement.parentElement.classList[0].split("row")[1];
   await recordArr.splice(Number(targetData), 1);
   await drawRecord(recordArr);
   booleanToString();
@@ -52,11 +53,13 @@ const drawRecord = async (recordArr) => {
       td.innerText = record[index];
       tr.appendChild(td);
     }
+    const tdBtn = document.createElement("td");
     const btn = document.createElement("button");
     btn.classList.add("removeBtn");
     btn.innerText = "삭제";
     tr.classList.add(`row${rowNumber}`);
-    tr.appendChild(btn);
+    tdBtn.appendChild(btn);
+    tr.appendChild(tdBtn);
     dataTable.appendChild(tr);
     rowNumber = rowNumber + 1;
   }
