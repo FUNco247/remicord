@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Record from "../models/Record";
 import bcrypt from "bcrypt";
 
 export const getEdit = (req, res) => {
@@ -92,7 +93,7 @@ export const postLogin = async (req, res) => {
   }
   console.log(req.session);
   if (rememberMe == "on") {
-    req.session.cookie._expires = new Date(253402300000000);
+    //req.session.cookie._expires = new Date(253402300000000);
     req.session.cookie.originalMaxAge = new Date(253402300000000);
   }
   console.log(req.session);
@@ -111,7 +112,7 @@ export const postPersonalJoin = async (req, res) => {
   const { username, name, password, password2, phoneNumber, plateNumber } =
     req.body;
   if (password !== password2) {
-    return res.status(400).render("user/personalJoin", {
+    return res.status(40).render("user/personalJoin", {
       errorMessage: "비밀번호가 일치하지 않습니다.",
     });
   }
@@ -151,4 +152,43 @@ export const postPersonalJoin = async (req, res) => {
 
 export const getFindPW = (req, res) => {
   res.render("user/findPassword");
+};
+
+export const postFindPW = async (req, res) => {
+  const { username, name, plateNumber, phoneNumber } = req.body;
+  const user = await User.findOne({ username, name, plateNumber, phoneNumber });
+  if (user) {
+    return res.redirect(`/user/resetPassword/${user._id}`);
+  } else {
+    return res.render("user/findPassword", {
+      errorMessage: "입력하신 정보와 일치하는 회원이 없습니다.",
+    });
+  }
+};
+
+export const getResetPW = (req, res) => {
+  res.render("user/resetPW");
+};
+
+export const postResetPW = async (req, res) => {
+  const { id } = req.params;
+  const { newPassword, password2 } = req.body;
+  if (newPassword != password2) {
+    return res.render("user/resetPW", {
+      errorMessage: "비밀번호를 확인하세요.",
+    });
+  }
+  console.log(req.body, id);
+  const user = await User.findById(id);
+  user.password = newPassword;
+  await user.save();
+  return res.redirect("/user/login");
+};
+
+export const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  req.session.destroy();
+  await Record.deleteMany({ owner: id });
+  await User.findByIdAndDelete({ _id: id });
+  return res.redirect("/");
 };

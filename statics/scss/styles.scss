@@ -156,6 +156,9 @@ td {
       flex-direction: column;
       align-items: center;
       justify-content: center;
+      label {
+        text-align: start;
+      }
     }
     input {
       border-radius: 10px;
@@ -188,6 +191,23 @@ td {
     .submitBtn {
       text-align: center;
       input[type="submit"] {
+        background: $truckyellow;
+        border: none;
+        border-radius: 10px;
+        color: whitesmoke;
+        font-weight: bolder;
+        font-size: larger;
+        text-transform: uppercase;
+        transition: 0.1s ease;
+        cursor: pointer;
+        &:hover {
+          background-color: $eugeneblue;
+          font-size: x-large;
+        }
+      }
+      button {
+        width: 450px;
+        height: 50px;
         background: $truckyellow;
         border: none;
         border-radius: 10px;
@@ -781,5 +801,31 @@ tbody {
       background-color: $eugeneblue;
       font-size: x-large;
     }
+  }
+}
+
+.inform {
+  color: whitesmoke;
+  text-align: center;
+}
+.message,
+.errMessage {
+  color: tomato;
+  text-align: center;
+}
+.errorPopup {
+  text-align: center;
+  border: solid 1px whitesmoke;
+}
+
+.notice {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  small {
+    color: tomato;
+  }
+  a {
+    color: #f5a5a3;
   }
 }

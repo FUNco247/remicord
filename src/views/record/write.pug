@@ -9,7 +9,7 @@ block contents
             h1.clock
     div(class='write-input-box')
         if errorMessage
-            span=errorMessage
+            span.errMessage=errorMessage
         form(method="POST")
             div
                 input(name="date", type="date", value=`${years}-${months}-${dates}`, readonly)

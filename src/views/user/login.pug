@@ -4,7 +4,7 @@ block contents
     div.loginbox
         div.login-input-wrap
             if errorMessage
-            span=errorMessage
+            span.errMessage=errorMessage
             form.login-form(method="POST")
                 input(placeholder="아이디", name="username", type="text", required)
                 input(placeholder="비밀번호", name="password", type="password", required)
@@ -14,5 +14,5 @@ block contents
                     span
                         input(type="checkbox", name="rememberMe")
                         | 자동 로그인
-                    //span 
+                    span 
                         a(href="/user/findPW") 비밀번호 찾기
