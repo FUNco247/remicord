@@ -6,7 +6,7 @@ export const getEdit = (req, res) => {
 };
 
 export const postEdit = async (req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   const { user } = req.session;
   const id = user._id;
   const {
@@ -76,7 +76,7 @@ export const getPersonalJoin = (req, res) => {
 };
 
 export const postLogin = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, rememberMe } = req.body;
   const user = await User.findOne({ username });
   if (!user) {
     return res.status(400).render("user/login", {
@@ -90,6 +90,12 @@ export const postLogin = async (req, res) => {
       errorMessage: "비밀번호가 일치하지 않습니다.",
     });
   }
+  console.log(req.session);
+  if (rememberMe == "on") {
+    req.session.cookie._expires = new Date(253402300000000);
+    req.session.cookie.originalMaxAge = new Date(253402300000000);
+  }
+  console.log(req.session);
   req.session.loggedIn = true;
   req.session.user = user;
   const id = user._id;
@@ -141,4 +147,8 @@ export const postPersonalJoin = async (req, res) => {
       errorMessage: error._message,
     });
   }
+};
+
+export const getFindPW = (req, res) => {
+  res.render("user/findPassword");
 };
