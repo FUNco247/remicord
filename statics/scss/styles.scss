@@ -538,21 +538,6 @@ tbody {
           font-size: x-large;
         }
       }
-      input[name="date"] {
-        background-color: $divbgcolor;
-        text-align: center;
-        border: 1px solid whitesmoke;
-        border-radius: 10px;
-        width: 220px;
-        color-scheme: whitesmoke;
-      }
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        cursor: pointer;
-        border-radius: 4px;
-        margin-right: 2px;
-        opacity: 0.6;
-        filter: invert(0.8);
-      }
     }
     .edit-date-box {
     }
@@ -625,6 +610,9 @@ tbody {
     }
     input {
       margin-bottom: 5px;
+      height: 40px;
+      color: $truckyellow;
+      font-size: large;
     }
   }
   button {
@@ -828,4 +816,19 @@ tbody {
   a {
     color: #f5a5a3;
   }
+}
+input[type="date"] {
+  background-color: $divbgcolor;
+  text-align: center;
+  border: 1px solid whitesmoke;
+  border-radius: 10px;
+  width: 220px;
+  color-scheme: whitesmoke;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 2px;
+  opacity: 0.6;
+  filter: invert(0.8);
 }
